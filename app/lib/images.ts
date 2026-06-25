@@ -15,7 +15,7 @@
 
 export type Photo = { src: string; alt: string };
 
-const base = "/assets/photos";
+const base = "/mvp-prototype/assets/photos";
 
 export const photos = {
   // --- Studio ---
