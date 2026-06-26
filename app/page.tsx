@@ -3,6 +3,7 @@ import { Hero } from "./components/home/hero";
 import { ServicesOverview } from "./components/home/services-overview";
 import { PolestarHighlight } from "./components/home/polestar-highlight";
 import { BrandReveal } from "./components/home/brand-reveal";
+import { CoreValues } from "./components/home/core-values";
 import { GetStarted } from "./components/home/get-started";
 import { Testimonials } from "./components/home/testimonials";
 import { CtaBand } from "./components/home/cta-band";
@@ -49,6 +50,7 @@ export default function Home() {
       </section>
 
       <ServicesOverview />
+      <CoreValues />
       <BrandReveal />
       <PolestarHighlight />
       <Testimonials />
