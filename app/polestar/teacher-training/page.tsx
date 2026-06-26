@@ -147,7 +147,8 @@ export default function TeacherTrainingPage() {
             sizes="100vw"
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-background/85" />
+          <div className="absolute inset-0 polestar-scrim" />
+          <div aria-hidden className="polestar-aurora absolute inset-0" />
         </div>
         <Container className="max-w-3xl py-24 sm:py-28">
           <p className="mb-4 text-sm font-semibold uppercase tracking-[0.22em] text-primary">
@@ -460,7 +461,8 @@ export default function TeacherTrainingPage() {
       </section>
 
       {/* Registration / CTA */}
-      <section className="py-20 sm:py-24">
+      <section className="relative isolate overflow-hidden py-20 sm:py-24">
+        <div aria-hidden className="polestar-aurora absolute inset-0 -z-10" />
         <Container>
           <Card className="bg-card p-8 sm:p-12">
             <div className="grid items-center gap-8 lg:grid-cols-[1.4fr_1fr]">

@@ -42,14 +42,23 @@ export const site = {
 export type NavItem = {
   label: string;
   href: string;
+  /** Optional dropdown sub-links (desktop) / nested links (mobile). */
+  children?: NavItem[];
 };
 
-/** Primary navigation — kept to 6 items (down from ~10 Wix tabs). */
+/** Primary navigation — kept to 6 top-level items (down from ~10 Wix tabs). */
 export const mainNav: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "Classes", href: "/classes" },
   { label: "Pricing & Booking", href: "/pricing" },
-  { label: "Polestar", href: "/polestar" },
+  {
+    label: "Polestar",
+    href: "/polestar",
+    children: [
+      { label: "Overview", href: "/polestar" },
+      { label: "Teacher Training", href: "/polestar/teacher-training" },
+    ],
+  },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];

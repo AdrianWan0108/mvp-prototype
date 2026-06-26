@@ -144,38 +144,69 @@
 }
 
 /* ---------- POLESTAR DARK — auto-applied on /polestar ----------
-   A genuine dark theme (the supplied palettes are all light-bg).
-   Deep forest background, light foreground, brightened green
-   accents for AA contrast on dark. Not exposed in the switcher. */
+   A genuine, neutral dark theme — NOT a darkened palette. The base
+   is a near-black, very-low-chroma charcoal (faint green undertone
+   for cohesion) so it reads as its own "premium room" rather than
+   the forest palette. Crucially, it does NOT redefine the --brand-*
+   ramp, so the ramp is inherited from whichever palette is active on
+   <html>; the accent tokens below derive from that ramp and so the
+   Polestar accent tracks the selected palette. Not in the switcher. */
 [data-theme="polestar-dark"] {
   color-scheme: dark;
 
-  --brand-50: #f0f5f4;
-  --brand-100: #dbe7e3;
-  --brand-200: #b2cbc3;
-  --brand-300: #81ab9e;
-  --brand-400: #478471;
-  --brand-500: #0d5d44;
-  --brand-600: #0e523d;
-  --brand-700: #0f4635;
-  --brand-800: #10382c;
-  --brand-900: #122b23;
+  /* Lifted off near-black: deep slate with clear elevation steps between
+     background / card / secondary, so sections actually separate. */
+  --background: #1c2521;
+  --foreground: #eef4f1;
+  --card: #27322d;
+  --card-foreground: #eef4f1;
+  --secondary: #313d37;
+  --secondary-foreground: #eef4f1;
+  --muted: #27322d;
+  --muted-foreground: #aebfb6;
+  --border: #3a4740;
+  --input: #3a4740;
 
-  --background: #0c1f19;
-  --foreground: #e8f1ec;
-  --card: #123028;
-  --card-foreground: #e8f1ec;
-  --primary: #6ec196; /* bright verdant green pops on dark */
-  --primary-foreground: #0c1f19;
-  --secondary: #1c4034;
-  --secondary-foreground: #e8f1ec;
-  --muted: #14352b;
-  --muted-foreground: #a9c5b8;
-  --accent: #91d0af;
-  --accent-foreground: #0c1f19;
-  --border: #21463a;
-  --input: #21463a;
-  --ring: #6ec196;
+  /* Accent inherited from the selected palette's ramp. A light step
+     keeps it bright on the slate base across all four palettes. */
+  --primary: var(--brand-300);
+  --primary-foreground: var(--background);
+  --accent: var(--brand-400);
+  --accent-foreground: var(--background);
+  --ring: var(--brand-300);
+}
+
+/* Palette-adaptive decorative layers for the dark Polestar surfaces.
+   Glow color comes from color-mix() with the (adaptive) accent vars, so
+   they follow the selected palette. Pure decoration — safe to ignore if
+   color-mix is unsupported. */
+[data-theme="polestar-dark"] .polestar-scrim {
+  background:
+    linear-gradient(
+      to top,
+      var(--background) 8%,
+      color-mix(in oklab, var(--background) 72%, transparent) 50%,
+      color-mix(in oklab, var(--background) 30%, transparent) 100%
+    ),
+    radial-gradient(
+      70% 90% at 15% 8%,
+      color-mix(in oklab, var(--primary) 22%, transparent),
+      transparent 70%
+    );
+}
+
+[data-theme="polestar-dark"] .polestar-aurora {
+  background:
+    radial-gradient(
+      55% 65% at 12% 0%,
+      color-mix(in oklab, var(--primary) 18%, transparent),
+      transparent 60%
+    ),
+    radial-gradient(
+      50% 60% at 100% 100%,
+      color-mix(in oklab, var(--accent) 14%, transparent),
+      transparent 55%
+    );
 }
 
 /* ============================================================

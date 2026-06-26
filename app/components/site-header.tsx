@@ -49,20 +49,70 @@ export function SiteHeader() {
         </div>
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
-          {mainNav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={cn(
-                "rounded-full px-3 py-2 text-sm transition-colors hover:bg-muted",
-                isActive(pathname, item.href)
-                  ? "font-semibold text-primary"
-                  : "text-foreground/80",
-              )}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {mainNav.map((item) =>
+            item.children ? (
+              <div key={item.href} className="group relative">
+                <Link
+                  href={item.href}
+                  aria-haspopup="true"
+                  className={cn(
+                    "flex items-center gap-1 rounded-full px-3 py-2 text-sm transition-colors hover:bg-muted",
+                    isActive(pathname, item.href)
+                      ? "font-semibold text-primary"
+                      : "text-foreground/80",
+                  )}
+                >
+                  {item.label}
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden
+                    className="mt-0.5 transition-transform group-hover:rotate-180"
+                  >
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </Link>
+                <div className="invisible absolute left-0 top-full pt-2 opacity-0 transition-opacity group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                  <ul className="min-w-48 rounded-xl border border-border bg-card p-1.5 shadow-lg">
+                    {item.children.map((child) => (
+                      <li key={child.href}>
+                        <Link
+                          href={child.href}
+                          className={cn(
+                            "block rounded-lg px-3 py-2 text-sm transition-colors hover:bg-muted",
+                            pathname === child.href
+                              ? "font-semibold text-primary"
+                              : "text-foreground/80",
+                          )}
+                        >
+                          {child.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ) : (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "rounded-full px-3 py-2 text-sm transition-colors hover:bg-muted",
+                  isActive(pathname, item.href)
+                    ? "font-semibold text-primary"
+                    : "text-foreground/80",
+                )}
+              >
+                {item.label}
+              </Link>
+            ),
+          )}
           <CtaButton href={links.book} className="ml-2">
             Book Now
           </CtaButton>
@@ -109,19 +159,39 @@ export function SiteHeader() {
         >
           <Container className="flex flex-col gap-1 py-4">
             {mainNav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className={cn(
-                  "rounded-lg px-3 py-2.5 text-base transition-colors hover:bg-muted",
-                  isActive(pathname, item.href)
-                    ? "font-semibold text-primary"
-                    : "text-foreground/90",
+              <div key={item.href} className="flex flex-col">
+                <Link
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                  className={cn(
+                    "rounded-lg px-3 py-2.5 text-base transition-colors hover:bg-muted",
+                    isActive(pathname, item.href)
+                      ? "font-semibold text-primary"
+                      : "text-foreground/90",
+                  )}
+                >
+                  {item.label}
+                </Link>
+                {item.children && (
+                  <div className="ml-3 flex flex-col border-l border-border pl-3">
+                    {item.children.map((child) => (
+                      <Link
+                        key={child.href}
+                        href={child.href}
+                        onClick={() => setOpen(false)}
+                        className={cn(
+                          "rounded-lg px-3 py-2 text-sm transition-colors hover:bg-muted",
+                          pathname === child.href
+                            ? "font-semibold text-primary"
+                            : "text-foreground/75",
+                        )}
+                      >
+                        {child.label}
+                      </Link>
+                    ))}
+                  </div>
                 )}
-              >
-                {item.label}
-              </Link>
+              </div>
             ))}
             <CtaButton
               href={links.book}

@@ -42,7 +42,8 @@ export default function PolestarPage() {
             sizes="100vw"
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-background/80" />
+          <div className="absolute inset-0 polestar-scrim" />
+          <div aria-hidden className="polestar-aurora absolute inset-0" />
         </div>
         <Container className="max-w-3xl py-24 sm:py-28">
           <p className="mb-4 text-sm font-semibold uppercase tracking-[0.22em] text-primary">
@@ -198,7 +199,8 @@ export default function PolestarPage() {
       </section>
 
       {/* Teacher training teaser */}
-      <section className="bg-secondary text-secondary-foreground">
+      <section className="relative isolate overflow-hidden bg-secondary text-secondary-foreground">
+        <div aria-hidden className="polestar-aurora absolute inset-0 -z-10" />
         <Container className="flex flex-col items-center gap-6 py-20 text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary">
             New for September 2026

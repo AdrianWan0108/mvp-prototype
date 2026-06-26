@@ -19,8 +19,9 @@ export function PolestarHighlight() {
   return (
     <section
       data-theme="polestar-dark"
-      className="bg-background text-foreground"
+      className="relative isolate overflow-hidden bg-background text-foreground"
     >
+      <div aria-hidden className="polestar-aurora absolute inset-0 -z-10" />
       <Container className="grid items-center gap-12 py-20 sm:py-24 lg:grid-cols-2">
         <div>
           <SectionHeading
