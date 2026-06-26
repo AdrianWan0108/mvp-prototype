@@ -43,6 +43,10 @@ export const photos = {
     src: `${base}/studio-interior/pilates-wall-1.jpg`,
     alt: "Gallery wall of vintage black-and-white photographs of Joseph Pilates teaching the original Pilates method.",
   },
+  entranceWall: {
+    src: `${base}/studio-interior/entrance-wall.jpg`,
+    alt: "Entrance wall at Motion Vitality Pilates welcoming clients into the studio.",
+  },
   polestarOnWall: {
     src: `${base}/studio-interior/polestar-on-wall.jpg`,
     alt: "Polestar Pilates sign displayed on the studio wall at Motion Vitality Pilates.",

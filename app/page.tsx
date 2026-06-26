@@ -1,11 +1,11 @@
 import { Container } from "./components/container";
 import { Hero } from "./components/home/hero";
 import { NeedsFunnel } from "./components/home/needs-funnel";
-import { ServicesOverview } from "./components/home/services-overview";
 import { EquipmentShowcase } from "./components/home/equipment-showcase";
 import { PolestarHighlight } from "./components/home/polestar-highlight";
 import { BrandReveal } from "./components/home/brand-reveal";
 import { CoreValues } from "./components/home/core-values";
+import { GalleryWall } from "./components/home/gallery-wall";
 import { GetStarted } from "./components/home/get-started";
 import { Testimonials } from "./components/home/testimonials";
 import { BlogSection } from "./components/home/blog-section";
@@ -54,10 +54,10 @@ export default function Home() {
       </section>
 
       <NeedsFunnel />
-      <ServicesOverview />
       <EquipmentShowcase />
       <BrandReveal />
       <CoreValues />
+      <GalleryWall />
       <PolestarHighlight />
       <Testimonials />
       <BlogSection />

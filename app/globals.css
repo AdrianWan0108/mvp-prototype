@@ -333,3 +333,30 @@ h4 {
   outline: 2px solid var(--ring);
   outline-offset: 2px;
 }
+
+/* Gallery wall marquee: photos scroll right -> left in a seamless loop.
+   The track holds two copies of the photo set; translating it -50% lands
+   the second copy exactly where the first began. Pauses on hover and for
+   users who prefer reduced motion. */
+@keyframes gallery-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.gallery-marquee-track {
+  animation: gallery-marquee 45s linear infinite;
+}
+
+.gallery-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-marquee-track {
+    animation: none;
+  }
+}

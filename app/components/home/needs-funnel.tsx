@@ -3,43 +3,151 @@ import Link from "next/link";
 import { Activity, Heart, Dumbbell, Spline } from "lucide-react";
 import { Container } from "../container";
 import { SectionHeading } from "../section-heading";
+import { cn } from "@/app/lib/cn";
 import { photos } from "@/app/lib/images";
 
 /**
- * "What brings you here?" funnel. Four need-based entry points that route into
- * the Classes page pre-filtered by `?need=`. Photo-on-top cards that float on
- * hover.
+ * "What brings you here?" funnel as a 4×2 grid. Each card sits beside its round
+ * CTA; hovering a card makes the CTA dissolve in *behind* the card and slide
+ * out horizontally into the neighbouring cell.
+ *
+ * Wired via named Tailwind peers — `peer/x` / `peer-hover/x:` are written
+ * literally so the scanner generates them. `enter` is the hidden offset that
+ * tucks the CTA behind the card; `reveal` resets it.
  */
 const needs = [
   {
     icon: Activity,
     title: "Rehab & recovery",
-    body: "Move past injury or pain with rehab-informed, Polestar-certified coaching.",
+    body: "Rebuild strength and move freely after injury or pain.",
     href: "/classes?need=rehab",
-    photo: photos.privateSession,
+    photo: photos.dorothyPose,
+    peer: "peer/rehab",
+    enter: "-translate-x-full", // CTA sits to the right of the card → emerge rightward
+    arrow: "→",
+    reveal:
+      "peer-hover/rehab:translate-x-0 peer-hover/rehab:scale-100 peer-hover/rehab:opacity-100",
   },
   {
     icon: Heart,
     title: "Pre & postnatal",
-    body: "Safe, supportive sessions for every stage of pregnancy and beyond.",
+    body: "Supportive sessions for every stage of pregnancy and recovery.",
     href: "/classes?need=prenatal",
-    photo: photos.florencePose,
+    photo: photos.privateSession,
+    peer: "peer/prenatal",
+    enter: "translate-x-full", // CTA sits to the left of the card → emerge leftward
+    arrow: "←",
+    reveal:
+      "peer-hover/prenatal:translate-x-0 peer-hover/prenatal:scale-100 peer-hover/prenatal:opacity-100",
   },
   {
     icon: Dumbbell,
     title: "Strength & conditioning",
-    body: "Build full-body strength, endurance, and lean muscle on the reformer.",
+    body: "Low-impact reformer training that builds full-body strength.",
     href: "/classes?need=strength",
-    photo: photos.garyPose,
+    photo: photos.reformer,
+    peer: "peer/strength",
+    enter: "-translate-x-full",
+    arrow: "→",
+    reveal:
+      "peer-hover/strength:translate-x-0 peer-hover/strength:scale-100 peer-hover/strength:opacity-100",
   },
   {
     icon: Spline,
     title: "Posture & alignment",
-    body: "Improve mobility, balance, and alignment with mindful, precise movement.",
+    body: "Mindful movement for mobility, balance, and alignment.",
     href: "/classes?need=alignment",
-    photo: photos.gyrotonic,
+    photo: photos.spineFigure,
+    peer: "peer/alignment",
+    enter: "translate-x-full",
+    arrow: "←",
+    reveal:
+      "peer-hover/alignment:translate-x-0 peer-hover/alignment:scale-100 peer-hover/alignment:opacity-100",
   },
 ];
+
+// Fade in first (behind the card), then slide out from behind it. Tailwind v4
+// uses the native translate/scale properties, so they must be listed too.
+const ctaTransition = [
+  "opacity 300ms ease",
+  "transform 650ms cubic-bezier(0.22,1,0.36,1) 220ms",
+  "translate 650ms cubic-bezier(0.22,1,0.36,1) 220ms",
+  "scale 650ms cubic-bezier(0.22,1,0.36,1) 220ms",
+].join(", ");
+
+function NeedCard({
+  need,
+  className,
+}: {
+  need: (typeof needs)[number];
+  className?: string;
+}) {
+  const Icon = need.icon;
+  return (
+    <Link
+      href={need.href}
+      className={cn(
+        "group relative z-10 block rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
+        need.peer,
+        className,
+      )}
+    >
+      <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-card">
+        <Image
+          src={need.photo.src}
+          alt={need.photo.alt}
+          fill
+          sizes="(min-width: 1024px) 22vw, 45vw"
+          className="object-cover motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:scale-105"
+        />
+      </div>
+      <div className="mt-3 flex items-center gap-2 text-primary">
+        <Icon className="h-4 w-4 shrink-0" strokeWidth={1.75} />
+        <h3 className="font-serif text-sm font-bold uppercase tracking-[0.06em] text-foreground">
+          {need.title}
+        </h3>
+      </div>
+      <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+        {need.body}
+      </p>
+    </Link>
+  );
+}
+
+/**
+ * Round CTA. Hidden + tucked behind the card by default; the matching card's
+ * peer-hover (or hovering/focusing the CTA itself) reveals + slides it out.
+ * Desktop only.
+ */
+function NeedCta({
+  need,
+  className,
+}: {
+  need: (typeof needs)[number];
+  className?: string;
+}) {
+  return (
+    <div
+      style={{ transition: ctaTransition }}
+      className={cn(
+        "relative z-0 hidden scale-90 items-center justify-center opacity-0 lg:flex",
+        need.enter,
+        need.reveal,
+        "hover:translate-x-0 hover:scale-100 hover:opacity-100 focus-within:translate-x-0 focus-within:scale-100 focus-within:opacity-100",
+        className,
+      )}
+    >
+      <Link
+        href={need.href}
+        className="grid h-28 w-28 place-items-center rounded-full bg-primary text-center text-sm font-semibold leading-tight text-primary-foreground outline-none transition-transform duration-300 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+      >
+        Explore
+        <br />
+        {need.arrow}
+      </Link>
+    </div>
+  );
+}
 
 export function NeedsFunnel() {
   return (
@@ -50,46 +158,23 @@ export function NeedsFunnel() {
           title="What brings you to the studio?"
           intro="Whatever your body needs, we’ll match you with the right classes and sessions."
         />
+
+        <div className="mt-12 grid grid-cols-2 items-start gap-5 sm:gap-6 lg:grid-cols-4">
+          {/* Each card is immediately followed in the DOM by its CTA so the
+              named peer-hover reaches it. Grid placement sets the visual order. */}
+          <NeedCard need={needs[0]} className="lg:col-start-1 lg:row-start-1" />
+          <NeedCta need={needs[0]} className="lg:col-start-2 lg:row-start-1" />
+
+          <NeedCard need={needs[1]} className="lg:col-start-2 lg:row-start-2" />
+          <NeedCta need={needs[1]} className="lg:col-start-1 lg:row-start-2" />
+
+          <NeedCard need={needs[2]} className="lg:col-start-3 lg:row-start-1" />
+          <NeedCta need={needs[2]} className="lg:col-start-4 lg:row-start-1" />
+
+          <NeedCard need={needs[3]} className="lg:col-start-4 lg:row-start-2" />
+          <NeedCta need={needs[3]} className="lg:col-start-3 lg:row-start-2" />
+        </div>
       </Container>
-
-      {/* Full-bleed card row */}
-      <div className="mt-12 grid grid-cols-1 gap-6 px-4 min-[600px]:grid-cols-2 sm:px-8 lg:grid-cols-4 lg:px-12">
-        {needs.map((need) => {
-          const Icon = need.icon;
-          return (
-            <Link
-              key={need.href}
-              href={need.href}
-              className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm outline-none hover:shadow-xl focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 motion-safe:transition-[transform,box-shadow] motion-safe:duration-300 motion-safe:hover:-translate-y-1.5"
-            >
-              <div className="relative aspect-[4/3] overflow-hidden">
-                <Image
-                  src={need.photo.src}
-                  alt={need.photo.alt}
-                  fill
-                  sizes="(min-width: 1024px) 24vw, (min-width: 600px) 48vw, 92vw"
-                  className="object-cover motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:scale-105"
-                />
-              </div>
-
-              <div className="flex flex-1 flex-col p-6">
-                <div className="flex items-center gap-2 text-primary">
-                  <Icon className="h-5 w-5 shrink-0" strokeWidth={1.75} />
-                  <h3 className="font-serif text-base font-bold uppercase tracking-[0.08em] text-foreground">
-                    {need.title}
-                  </h3>
-                </div>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  {need.body}
-                </p>
-                <span className="mt-auto pt-5 text-sm font-semibold text-primary">
-                  Learn more &rarr;
-                </span>
-              </div>
-            </Link>
-          );
-        })}
-      </div>
     </section>
   );
 }
