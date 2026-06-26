@@ -67,6 +67,10 @@ export const photos = {
     src: `${base}/instructor-team/team-under-polestar-logo.jpg`,
     alt: "The Motion Vitality Pilates instructor team smiling together beneath the Polestar Pilates sign.",
   },
+  teamPolestar: {
+    src: `${base}/instructor-team/team-mvp-polestar.jpg`,
+    alt: "The Motion Vitality Pilates instructor team together, trained in the Polestar method.",
+  },
   garyHeadshot: {
     src: `${base}/instructor-headshots/gary-headshot-1.jpg`,
     alt: "Portrait of Gary Fok, founder of Motion Vitality Pilates, in a Polestar Canada shirt.",
@@ -112,3 +116,27 @@ export const photos = {
 } as const satisfies Record<string, Photo>;
 
 export type PhotoKey = keyof typeof photos;
+
+/**
+ * Four Gary & Dorothy movement poses used as the 2×2 background collage behind
+ * the Polestar "Learn to Move" heading. Order is row-major (top-left → bottom-
+ * right). Rendered decoratively under a dark overlay.
+ */
+export const learnToMovePoses: Photo[] = [
+  {
+    src: `${base}/pilates-pose/Dorothy/dorothy-pose-3.jpg`,
+    alt: "Dorothy demonstrating a controlled Pilates movement in the studio.",
+  },
+  {
+    src: `${base}/pilates-pose/Gary/gary-pose-5.jpg`,
+    alt: "Gary Fok performing a strong, balanced Pilates movement.",
+  },
+  {
+    src: `${base}/pilates-pose/Gary/gary-pose-11.jpg`,
+    alt: "Gary Fok showing strength and stability in a reformer exercise.",
+  },
+  {
+    src: `${base}/pilates-pose/Dorothy/dorothy-pose-6.jpg`,
+    alt: "Dorothy demonstrating a graceful, controlled Pilates movement.",
+  },
+];

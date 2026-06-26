@@ -144,36 +144,66 @@
 }
 
 /* ---------- POLESTAR DARK — auto-applied on /polestar ----------
-   A genuine, neutral dark theme — NOT a darkened palette. The base
-   is a near-black, very-low-chroma charcoal (faint green undertone
-   for cohesion) so it reads as its own "premium room" rather than
-   the forest palette. Crucially, it does NOT redefine the --brand-*
-   ramp, so the ramp is inherited from whichever palette is active on
-   <html>; the accent tokens below derive from that ramp and so the
-   Polestar accent tracks the selected palette. Not in the switcher. */
+   A palette-DERIVED dark theme: the dark surfaces are built from the
+   selected palette's own --brand-* ramp, deepened toward black just
+   enough to stay genuinely dark. So Mint reads as dark teal, Verdant as
+   dark green, Sage as dark grey-green, Forest as deep forest — each
+   recognizably itself instead of one fixed slate for every palette.
+   Crucially it does NOT redefine the --brand-* ramp, so it tracks the
+   palette active on <html>. Not in the switcher. */
 [data-theme="polestar-dark"] {
   color-scheme: dark;
 
-  /* Lifted off near-black: deep slate with clear elevation steps between
-     background / card / secondary, so sections actually separate. */
-  --background: #1c2521;
-  --foreground: #eef4f1;
-  --card: #27322d;
-  --card-foreground: #eef4f1;
-  --secondary: #313d37;
-  --secondary-foreground: #eef4f1;
-  --muted: #27322d;
-  --muted-foreground: #aebfb6;
-  --border: #3a4740;
-  --input: #3a4740;
+  /* Palette-derived, dark-dominant. Elevation steps UP through the ramp:
+     background (deepest) → card → secondary, all in the selected hue. */
+  --background: color-mix(in oklab, var(--brand-900) 78%, #000);
+  --foreground: var(--brand-50);
+  --card: var(--brand-900);
+  --card-foreground: var(--brand-50);
+  --secondary: var(--brand-800);
+  --secondary-foreground: var(--brand-50);
+  --muted: var(--brand-900);
+  --muted-foreground: var(--brand-200);
+  --border: color-mix(in oklab, var(--brand-50) 14%, transparent);
+  --input: color-mix(in oklab, var(--brand-50) 14%, transparent);
 
-  /* Accent inherited from the selected palette's ramp. A light step
-     keeps it bright on the slate base across all four palettes. */
+  /* Bright accents carry the palette identity on the dark base. */
   --primary: var(--brand-300);
   --primary-foreground: var(--background);
   --accent: var(--brand-400);
   --accent-foreground: var(--background);
   --ring: var(--brand-300);
+}
+
+/* ---------- POLESTAR LIGHT — white "breather" sections ----------
+   Opt-in per-section override used inside the dark Polestar pages to
+   introduce light relief (the client wants range, not wall-to-wall dark).
+   Drop data-theme="polestar-light" on a <section> and the cascade re-resolves
+   every token to white-mode for that subtree only. Like polestar-dark it does
+   NOT redefine the --brand-* ramp, so it stays palette-adaptive; the accent
+   uses a dark brand step (700/800) so white text and eyebrows stay AA-safe
+   across all four palettes. NOTE: a light section must also set the
+   `text-foreground` utility on the <section>, since the dark wrapper's
+   inherited (computed) light text color would otherwise wash out on white. */
+[data-theme="polestar-light"] {
+  color-scheme: light;
+
+  --background: #ffffff;
+  --foreground: var(--brand-900); /* palette-tracked dark text on white */
+  --card: #ffffff;
+  --card-foreground: var(--brand-900);
+  --secondary: var(--brand-100);
+  --secondary-foreground: var(--brand-900);
+  --muted: var(--brand-50);
+  --muted-foreground: var(--brand-800); /* proven readable in the light palettes */
+  --border: var(--brand-200);
+  --input: var(--brand-200);
+
+  --primary: var(--brand-700); /* eyebrow / accent text on white */
+  --primary-foreground: #ffffff;
+  --accent: var(--brand-700);
+  --accent-foreground: #ffffff;
+  --ring: var(--brand-700);
 }
 
 /* Palette-adaptive decorative layers for the dark Polestar surfaces.

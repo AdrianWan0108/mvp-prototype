@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PageHeader, ComingSoon } from "../components/page-header";
+import { PageHeader } from "../components/page-header";
 import { Container } from "../components/container";
 import { CtaButton } from "../components/cta-button";
 import { site } from "@/app/lib/site";
@@ -10,6 +10,10 @@ export const metadata: Metadata = {
   description:
     "Get in touch with Motion Vitality Pilates in Markham, Ontario — phone, email, hours, and booking.",
 };
+
+const mapQuery = encodeURIComponent(
+  `${site.name}, ${site.address.street}, ${site.address.locality}, Ontario ${site.address.postalCode}`,
+);
 
 export default function ContactPage() {
   return (
@@ -25,7 +29,13 @@ export default function ContactPage() {
             <h2 className="text-sm font-semibold uppercase tracking-wide text-primary">
               Studio
             </h2>
-            <p className="mt-2 text-lg">{site.address.street}</p>
+            <address className="mt-2 text-lg not-italic leading-relaxed">
+              {site.address.street}
+              <br />
+              {site.address.locality}, Ontario, Canada
+              <br />
+              {site.address.postalCode}
+            </address>
           </div>
           <div>
             <h2 className="text-sm font-semibold uppercase tracking-wide text-primary">
@@ -65,12 +75,15 @@ export default function ContactPage() {
           </CtaButton>
         </div>
 
-        <ComingSoon>
-          <p className="font-medium">A contact form and map are coming.</p>
-          <p className="mt-1 text-sm text-muted-foreground">
-            For now, reach us by phone or email — we respond quickly.
-          </p>
-        </ComingSoon>
+        <div className="overflow-hidden rounded-3xl border border-border shadow-sm">
+          <iframe
+            title={`Map to ${site.name}`}
+            src={`https://www.google.com/maps?q=${mapQuery}&output=embed`}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            className="h-full min-h-80 w-full"
+          />
+        </div>
       </Container>
     </>
   );

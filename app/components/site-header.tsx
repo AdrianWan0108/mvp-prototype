@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Container } from "./container";
 import { CtaButton } from "./cta-button";
 import { mainNav, site } from "@/app/lib/site";
@@ -17,13 +17,33 @@ function isActive(pathname: string | null, href: string): boolean {
 export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const lastScrollY = useRef(0);
   // Polestar routes use the dark theme; scope it to the header too for cohesion.
   const isPolestar = pathname?.startsWith("/polestar") ?? false;
+
+  // Hide the header when scrolling down, reveal it when scrolling up.
+  useEffect(() => {
+    function onScroll() {
+      const y = window.scrollY;
+      const goingDown = y > lastScrollY.current;
+      // Ignore tiny jitters; always show near the top of the page.
+      if (Math.abs(y - lastScrollY.current) > 6) {
+        setHidden(goingDown && y > 96);
+        lastScrollY.current = y;
+      }
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <header
       data-theme={isPolestar ? "polestar-dark" : undefined}
-      className="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur"
+      className={cn(
+        "sticky top-0 z-40 border-b border-border bg-background/85 text-foreground backdrop-blur transition-transform duration-300",
+        hidden && !open ? "-translate-y-full" : "translate-y-0",
+      )}
     >
       <Container className="flex h-16 items-center justify-between gap-3">
         <div className="flex items-center gap-3">
@@ -56,10 +76,10 @@ export function SiteHeader() {
                   href={item.href}
                   aria-haspopup="true"
                   className={cn(
-                    "flex items-center gap-1 rounded-full px-3 py-2 text-sm transition-colors hover:bg-muted",
+                    "flex items-center gap-1 px-3 py-2 text-base font-medium underline-offset-8 transition-colors hover:underline hover:decoration-2",
                     isActive(pathname, item.href)
                       ? "font-semibold text-primary"
-                      : "text-foreground/80",
+                      : "text-foreground/90",
                   )}
                 >
                   {item.label}
@@ -103,10 +123,10 @@ export function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "rounded-full px-3 py-2 text-sm transition-colors hover:bg-muted",
+                  "px-3 py-2 text-base font-medium underline-offset-8 transition-colors hover:underline hover:decoration-2",
                   isActive(pathname, item.href)
                     ? "font-semibold text-primary"
-                    : "text-foreground/80",
+                    : "text-foreground/90",
                 )}
               >
                 {item.label}

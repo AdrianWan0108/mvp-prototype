@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Container } from "./container";
 import { footerNav, site } from "@/app/lib/site";
+import { cn } from "@/app/lib/cn";
 
 export function SiteFooter() {
   const pathname = usePathname();
@@ -13,7 +14,13 @@ export function SiteFooter() {
   return (
     <footer
       data-theme={isPolestar ? "polestar-dark" : undefined}
-      className="mt-auto border-t border-border bg-muted/40 text-foreground"
+      className={cn(
+        "mt-auto border-t border-border text-foreground",
+        // A solid surface on the dark theme: bg-muted/40 is 40%-opaque, so over
+        // the light page body it composites to a washed gray that kills text
+        // contrast. The light theme keeps the subtle translucent tint.
+        isPolestar ? "bg-background" : "bg-muted/40",
+      )}
     >
       <Container className="grid gap-10 py-14 md:grid-cols-[1.5fr_repeat(3,1fr)]">
         <div>

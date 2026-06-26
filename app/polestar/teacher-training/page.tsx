@@ -155,13 +155,13 @@ export default function TeacherTrainingPage() {
             New for September 2026
           </p>
           <h1 className="font-serif text-4xl font-semibold leading-tight sm:text-5xl">
-            Polestar Comprehensive Pilates Teacher Training
+            Become a certified Polestar Pilates teacher
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-foreground/90">
-            The first-ever Polestar Comprehensive Pilates Teacher Training in the
-            Markham / Toronto area — hosted at Motion Vitality Pilates and running
-            September 2026 through July 2027. Master the full method and earn an
-            internationally recognized certification.
+            Canada&rsquo;s first-ever Polestar Comprehensive Pilates Teacher Training —
+            hosted at Motion Vitality Pilates in Markham / Toronto, September 2026
+            through July 2027. Master the full method and earn an internationally
+            recognized certification.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
             <CtaButton href={links.polestarRegister} size="lg">
@@ -188,71 +188,16 @@ export default function TeacherTrainingPage() {
         </Container>
       </section>
 
-      {/* A letter from Gary */}
-      <section className="py-20 sm:py-24">
-        <Container className="grid items-start gap-12 lg:grid-cols-[1fr_1.5fr]">
-          <div className="lg:sticky lg:top-28">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-border">
-              <Image
-                src={photos.garyHeadshot.src}
-                alt={photos.garyHeadshot.alt}
-                fill
-                sizes="(min-width: 1024px) 35vw, 100vw"
-                className="object-cover"
-              />
-            </div>
-          </div>
-          <div>
-            <SectionHeading eyebrow="A letter from Gary" title="Why Polestar" />
-            <div className="mt-6 space-y-4 text-base leading-relaxed text-foreground/90">
-              <p>Hello Pilates families &amp; friends,</p>
-              <p>
-                Choosing a Pilates teacher-training program can feel overwhelming.
-                There are many paths, philosophies, and certifications, and everyone
-                is convinced theirs is the best. My hope is to help simplify that
-                process so you can discover the path that truly aligns with how you
-                want to move, teach, and grow.
-              </p>
-              <p>
-                At Motion Vitality Pilates, we are proud to be the first host site
-                in the Markham / Toronto area for the internationally recognized
-                Polestar Pilates Teacher Training Program, beginning this September.
-              </p>
-              <p>
-                What makes Polestar especially meaningful to me is its strong sense
-                of community and mentorship. Throughout my own journey, Polestar
-                connected me with educators, mentors, and practitioners around the
-                world — a global network built on collaboration, apprenticeship, and
-                lifelong learning. Today I&rsquo;m honored to serve as an Educator,
-                Mentor, and Ambassador on the faculty of Polestar Pilates U.S.
-              </p>
-              <p>
-                As a Polestar graduate or faculty member, you become part of an
-                international community with access to studios and educators across
-                many countries — whether you wish to teach, keep learning, or simply
-                stay connected while you travel.
-              </p>
-              <p>
-                If you&rsquo;ve been considering deepening your practice, changing
-                careers, or expanding your movement education, I&rsquo;d love to
-                connect and answer any questions you may have.
-              </p>
-              <p className="font-semibold text-foreground">
-                With gratitude,
-                <br />
-                Gary — Founder of Motion Vitality Pilates
-              </p>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      {/* Program overview */}
-      <section className="bg-card py-20 sm:py-24">
+      {/* The big idea — program overview (white breather) */}
+      <section
+        data-theme="polestar-light"
+        className="bg-background text-foreground py-20 sm:py-24"
+      >
         <Container className="max-w-3xl">
           <SectionHeading
-            eyebrow="Program overview"
+            eyebrow="The program"
             title="Enter your Pilates era"
+            intro="One comprehensive program takes you from dedicated practitioner to confident, internationally certified instructor."
           />
           <div className="mt-6 space-y-4 text-base leading-relaxed text-foreground/90">
             <p>
@@ -388,8 +333,11 @@ export default function TeacherTrainingPage() {
         </Container>
       </section>
 
-      {/* Tuition */}
-      <section className="py-20 sm:py-24">
+      {/* Tuition — white breather */}
+      <section
+        data-theme="polestar-light"
+        className="bg-background text-foreground py-20 sm:py-24"
+      >
         <Container>
           <SectionHeading
             eyebrow="Tuition"
@@ -416,47 +364,6 @@ export default function TeacherTrainingPage() {
             Pricing is shown in USD and set by Polestar. Confirm current figures on
             the official registration page.
           </p>
-        </Container>
-      </section>
-
-      {/* Polestar community */}
-      <section className="bg-card py-20 sm:py-24">
-        <Container>
-          <SectionHeading
-            eyebrow="A global network"
-            title="Join the Polestar community"
-            intro="Training with Polestar connects you to faculty, mentors, and graduates around the world — a community built on collaboration and lifelong learning."
-          />
-          <div className="mt-10 grid gap-6 md:grid-cols-2">
-            <figure>
-              <div className="relative aspect-[16/10] overflow-hidden rounded-3xl border border-border">
-                <Image
-                  src={photos.polestarFaculty.src}
-                  alt={photos.polestarFaculty.alt}
-                  fill
-                  sizes="(min-width: 768px) 45vw, 100vw"
-                  className="object-cover"
-                />
-              </div>
-              <figcaption className="mt-3 text-sm text-muted-foreground">
-                Polestar faculty and trainees at a training retreat.
-              </figcaption>
-            </figure>
-            <figure>
-              <div className="relative aspect-[16/10] overflow-hidden rounded-3xl border border-border">
-                <Image
-                  src={photos.polestarCohort.src}
-                  alt={photos.polestarCohort.alt}
-                  fill
-                  sizes="(min-width: 768px) 45vw, 100vw"
-                  className="object-cover"
-                />
-              </div>
-              <figcaption className="mt-3 text-sm text-muted-foreground">
-                A Polestar teacher-training cohort together in the studio.
-              </figcaption>
-            </figure>
-          </div>
         </Container>
       </section>
 

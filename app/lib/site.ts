@@ -15,16 +15,15 @@ export const site = {
   url: "https://www.motionvitalitypilates.com",
 
   phone: "+16475883098",
-  phoneDisplay: "(647) 588-3098",
-  email: "info@motionvitalitypilates.com",
+  phoneDisplay: "647-588-3098",
+  email: "info@MotionVitalityPilates.com",
 
   address: {
-    // TODO: confirm exact street address with the client
-    street: "Markham, Ontario",
+    street: "Unit 3, 7780 Woodbine Avenue",
     locality: "Markham",
     region: "ON",
     country: "CA",
-    postalCode: "", // TODO
+    postalCode: "L3R 2N7",
   },
 
   // TODO: confirm hours with the client
@@ -50,7 +49,6 @@ export type NavItem = {
 export const mainNav: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "Classes", href: "/classes" },
-  { label: "Pricing & Booking", href: "/pricing" },
   {
     label: "Polestar",
     href: "/polestar",
@@ -68,8 +66,7 @@ export const footerNav: { heading: string; items: NavItem[] }[] = [
   {
     heading: "Explore",
     items: [
-      { label: "Classes & Services", href: "/classes" },
-      { label: "Pricing & Booking", href: "/pricing" },
+      { label: "Classes", href: "/classes" },
       { label: "Polestar Pilates", href: "/polestar" },
       { label: "Teacher Training", href: "/polestar/teacher-training" },
     ],

@@ -35,6 +35,7 @@ const DEFAULT_FONT = "modern";
 export function BrandControls() {
   const [theme, setTheme] = useState<string>(DEFAULT_THEME);
   const [font, setFont] = useState<string>(DEFAULT_FONT);
+  const [open, setOpen] = useState(true);
 
   // Sync displayed values to what the no-FOUC script already applied.
   useEffect(() => {
@@ -65,8 +66,64 @@ export function BrandControls() {
     }
   }
 
+  if (!open) {
+    return (
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        aria-label="Open theme & font preview controls"
+        title="Theme & font"
+        className="fixed left-3 top-3 z-50 grid h-10 w-10 place-items-center rounded-full border border-border bg-card/95 text-foreground shadow-lg backdrop-blur"
+      >
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden
+        >
+          <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" />
+          <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" />
+          <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" />
+          <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" />
+          <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.563-2.512 5.563-5.563C22 6.012 17.5 2 12 2Z" />
+        </svg>
+      </button>
+    );
+  }
+
   return (
     <div className="fixed left-3 top-3 z-50 flex w-44 flex-col gap-2 rounded-xl border border-border bg-card/95 p-2.5 shadow-lg backdrop-blur">
+      <div className="flex items-center justify-between">
+        <span className="text-[0.6rem] font-semibold uppercase tracking-[0.15em] text-muted-foreground">
+          Preview
+        </span>
+        <button
+          type="button"
+          onClick={() => setOpen(false)}
+          aria-label="Close preview controls"
+          title="Close"
+          className="grid h-5 w-5 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+        >
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            aria-hidden
+          >
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      </div>
       <Field
         id="brand-theme"
         label="Color"
