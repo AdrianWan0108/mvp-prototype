@@ -99,6 +99,16 @@ export const photos = {
     src: `${base}/instructor-teaching-students-private-class/Dorothy/dorothy-private-1.jpg`,
     alt: "Pilates instructor giving hands-on cues to a client during a private one-on-one reformer session.",
   },
+
+  // --- Polestar community (teacher-training context) ---
+  polestarFaculty: {
+    src: `${base}/polestar-group/polestar-faculty.jpg`,
+    alt: "Polestar Pilates faculty and trainees gathered on the steps of a Polestar Life Center training retreat.",
+  },
+  polestarCohort: {
+    src: `${base}/polestar-group/polestar-cohort.jpg`,
+    alt: "A Polestar Pilates teacher-training cohort together in the studio beneath the Polestar banner.",
+  },
 } as const satisfies Record<string, Photo>;
 
 export type PhotoKey = keyof typeof photos;

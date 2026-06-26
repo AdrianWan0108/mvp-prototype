@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Container } from "./container";
-import { ThemeSwitcher } from "./theme-switcher";
 import { CtaButton } from "./cta-button";
 import { mainNav, site } from "@/app/lib/site";
 import { links } from "@/app/lib/links";
@@ -28,7 +27,6 @@ export function SiteHeader() {
     >
       <Container className="flex h-16 items-center justify-between gap-3">
         <div className="flex items-center gap-3">
-          <ThemeSwitcher />
           {/* TODO: replace placeholder monogram with the real MVP logo (SVG). */}
           <Link
             href="/"
