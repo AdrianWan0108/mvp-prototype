@@ -2,6 +2,9 @@ import { Container } from "./components/container";
 import { Hero } from "./components/home/hero";
 import { ServicesOverview } from "./components/home/services-overview";
 import { PolestarHighlight } from "./components/home/polestar-highlight";
+import { BrandReveal } from "./components/home/brand-reveal";
+import { GetStarted } from "./components/home/get-started";
+import { Testimonials } from "./components/home/testimonials";
 import { CtaBand } from "./components/home/cta-band";
 
 const values = [
@@ -46,7 +49,10 @@ export default function Home() {
       </section>
 
       <ServicesOverview />
+      <BrandReveal />
       <PolestarHighlight />
+      <Testimonials />
+      <GetStarted />
       <CtaBand />
     </>
   );

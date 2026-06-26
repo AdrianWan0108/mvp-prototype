@@ -18,6 +18,22 @@ export type Photo = { src: string; alt: string };
 const base = "/mvp-prototype/assets/photos";
 
 export const photos = {
+  // --- Brand ---
+  mvpLogo: {
+    src: `${base}/polestar-logo/mvp-wordmark.png`,
+    alt: "Motion Vitality Pilates wordmark.",
+  },
+
+  heroBg: {
+    src: `${base}/polestar-logo/Hero.png`,
+    alt: "Pilates instructor performing an inverted hang on the Cadillac trapeze table, showing control and mobility.",
+  },
+
+  mindbodyApp: {
+    src: `${base}/polestar-logo/Mindbody.png`,
+    alt: "The Mindbody app showing the Motion Vitality Pilates studio page, ready to book.",
+  },
+
   // --- Studio ---
   studioReformerFloor: {
     src: `${base}/studio-interior/reformer-environment.jpg`,
@@ -85,6 +101,10 @@ export const photos = {
   },
 
   // --- Movement / Polestar mood ---
+  heroPose: {
+    src: `${base}/pilates-pose/Florence/florance-pose-2.jpg`,
+    alt: "Pilates instructor demonstrating a strong, balanced standing movement at Motion Vitality Pilates.",
+  },
   garyPose: {
     src: `${base}/pilates-pose/Gary/gary-pose-1.jpg`,
     alt: "Instructor demonstrating a controlled Pilates movement, showing strength and alignment.",

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -7,6 +8,7 @@ import { Container } from "./container";
 import { CtaButton } from "./cta-button";
 import { mainNav, site } from "@/app/lib/site";
 import { links } from "@/app/lib/links";
+import { photos } from "@/app/lib/images";
 import { cn } from "@/app/lib/cn";
 
 function isActive(pathname: string | null, href: string): boolean {
@@ -18,21 +20,38 @@ export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const lastScrollY = useRef(0);
   // Polestar routes use the dark theme; scope it to the header too for cohesion.
   const isPolestar = pathname?.startsWith("/polestar") ?? false;
+  // The home hero runs full-bleed behind the header — sit transparent over it
+  // until the user scrolls, then swap to the solid treatment.
+  const isHome = pathname === "/";
+  const transparent = isHome && !scrolled && !open;
+
+  // Nav link colors flip to white while the header sits transparent over the hero.
+  const navLink = (active: boolean) =>
+    transparent
+      ? active
+        ? "font-semibold text-white"
+        : "text-white/90 hover:text-white"
+      : active
+        ? "font-semibold text-primary"
+        : "text-foreground/90";
 
   // Hide the header when scrolling down, reveal it when scrolling up.
   useEffect(() => {
     function onScroll() {
       const y = window.scrollY;
       const goingDown = y > lastScrollY.current;
+      setScrolled(y > 24);
       // Ignore tiny jitters; always show near the top of the page.
       if (Math.abs(y - lastScrollY.current) > 6) {
         setHidden(goingDown && y > 96);
         lastScrollY.current = y;
       }
     }
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -41,30 +60,31 @@ export function SiteHeader() {
     <header
       data-theme={isPolestar ? "polestar-dark" : undefined}
       className={cn(
-        "sticky top-0 z-40 border-b border-border bg-background/85 text-foreground backdrop-blur transition-transform duration-300",
+        "sticky top-0 z-40 transition-[transform,background-color,border-color] duration-300",
+        transparent
+          ? "border-b border-transparent bg-transparent text-white"
+          : "border-b border-border bg-background/85 text-foreground backdrop-blur",
         hidden && !open ? "-translate-y-full" : "translate-y-0",
       )}
     >
       <Container className="flex h-16 items-center justify-between gap-3">
         <div className="flex items-center gap-3">
-          {/* TODO: replace placeholder monogram with the real MVP logo (SVG). */}
           <Link
             href="/"
-            className="flex items-center gap-2"
+            className="flex items-center"
             aria-label={`${site.name} — home`}
           >
-            <span
-              aria-hidden
-              className="grid h-9 w-9 place-items-center rounded-lg bg-primary font-serif text-base font-bold text-primary-foreground"
-            >
-              M
-            </span>
-            <span className="hidden font-serif text-base font-semibold leading-none sm:block">
-              Motion Vitality
-              <span className="mt-0.5 block text-[0.65rem] font-normal uppercase tracking-[0.2em] text-muted-foreground">
-                Pilates
-              </span>
-            </span>
+            <Image
+              src={photos.mvpLogo.src}
+              alt={site.name}
+              width={130}
+              height={40}
+              priority
+              className={cn(
+                "h-7 w-auto transition-[filter]",
+                transparent && "brightness-0 invert",
+              )}
+            />
           </Link>
         </div>
 
@@ -77,9 +97,7 @@ export function SiteHeader() {
                   aria-haspopup="true"
                   className={cn(
                     "flex items-center gap-1 px-3 py-2 text-base font-medium underline-offset-8 transition-colors hover:underline hover:decoration-2",
-                    isActive(pathname, item.href)
-                      ? "font-semibold text-primary"
-                      : "text-foreground/90",
+                    navLink(isActive(pathname, item.href)),
                   )}
                 >
                   {item.label}
@@ -124,9 +142,7 @@ export function SiteHeader() {
                 href={item.href}
                 className={cn(
                   "px-3 py-2 text-base font-medium underline-offset-8 transition-colors hover:underline hover:decoration-2",
-                  isActive(pathname, item.href)
-                    ? "font-semibold text-primary"
-                    : "text-foreground/90",
+                  navLink(isActive(pathname, item.href)),
                 )}
               >
                 {item.label}
@@ -144,7 +160,10 @@ export function SiteHeader() {
           aria-expanded={open}
           aria-controls="mobile-menu"
           aria-label="Toggle navigation menu"
-          className="grid h-10 w-10 place-items-center rounded-lg border border-border lg:hidden"
+          className={cn(
+            "grid h-10 w-10 place-items-center rounded-lg border lg:hidden",
+            transparent ? "border-white/40 text-white" : "border-border",
+          )}
         >
           <svg
             width="20"
