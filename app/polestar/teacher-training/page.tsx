@@ -136,12 +136,12 @@ export default function TeacherTrainingPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(courseJsonLd) }}
       />
 
-      {/* Hero */}
-      <section className="relative isolate overflow-hidden">
+      {/* Hero — polestar-frontdoor.jpg full overlay, taller */}
+      <section className="relative isolate overflow-hidden pb-24">
         <div className="absolute inset-0 -z-10">
           <Image
-            src={photos.dorothyPose.src}
-            alt={photos.dorothyPose.alt}
+            src={photos.polestarFrontDoor.src}
+            alt={photos.polestarFrontDoor.alt}
             fill
             priority
             sizes="100vw"
@@ -150,7 +150,7 @@ export default function TeacherTrainingPage() {
           <div className="absolute inset-0 polestar-scrim" />
           <div aria-hidden className="polestar-aurora absolute inset-0" />
         </div>
-        <Container className="max-w-3xl py-24 sm:py-28">
+        <Container className="max-w-3xl pt-36 sm:pt-44 pb-0">
           <p className="mb-4 text-sm font-semibold uppercase tracking-[0.22em] text-primary">
             New for September 2026
           </p>
@@ -174,26 +174,38 @@ export default function TeacherTrainingPage() {
         </Container>
       </section>
 
-      {/* Key facts */}
-      <section className="border-y border-border bg-card">
-        <Container className="grid gap-6 py-10 sm:grid-cols-2 lg:grid-cols-4">
-          {facts.map((fact) => (
-            <div key={fact.label}>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
-                {fact.label}
-              </p>
-              <p className="mt-1 font-serif text-lg">{fact.value}</p>
-            </div>
-          ))}
+      {/* Key facts — 4 cards overlapping both hero and the section below */}
+      <div className="relative z-10 -mt-20">
+        <Container>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {facts.map((fact) => (
+              <Card key={fact.label} className="p-5 shadow-lg">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+                  {fact.label}
+                </p>
+                <p className="mt-1 font-serif text-lg">{fact.value}</p>
+              </Card>
+            ))}
+          </div>
         </Container>
-      </section>
+      </div>
 
-      {/* The big idea — program overview (white breather) */}
+      {/* The big idea — program overview with Polestar logo as background */}
       <section
         data-theme="polestar-light"
-        className="bg-background text-foreground py-20 sm:py-24"
+        className="relative overflow-hidden bg-background text-foreground pt-28 pb-20 sm:pt-32 sm:pb-24"
       >
-        <Container className="max-w-3xl">
+        <div className="absolute inset-0 -z-0 flex items-center justify-center pointer-events-none">
+          <Image
+            src="/mvp-prototype/assets/photos/polestar-logo/POLESTAR_TM_-_Default_Logo.png"
+            alt=""
+            aria-hidden
+            fill
+            sizes="100vw"
+            className="object-contain opacity-[0.07]"
+          />
+        </div>
+        <Container className="relative z-10 max-w-3xl">
           <SectionHeading
             eyebrow="The program"
             title="Enter your Pilates era"
@@ -217,8 +229,8 @@ export default function TeacherTrainingPage() {
         </Container>
       </section>
 
-      {/* Who it's for + Curriculum */}
-      <section className="py-20 sm:py-24">
+      {/* Who it's for + Curriculum — shorter height */}
+      <section className="py-12 sm:py-14">
         <Container className="grid gap-12 lg:grid-cols-2">
           <div>
             <SectionHeading eyebrow="Who it's for" title="Is this you?" />
@@ -250,8 +262,8 @@ export default function TeacherTrainingPage() {
         </Container>
       </section>
 
-      {/* Schedule */}
-      <section className="bg-card py-20 sm:py-24">
+      {/* Schedule — lighter background, Program requirements cards keep bg-card */}
+      <section className="bg-secondary text-foreground py-20 sm:py-24">
         <Container>
           <SectionHeading
             eyebrow="Important dates"
@@ -312,7 +324,7 @@ export default function TeacherTrainingPage() {
             </div>
           </div>
 
-          {/* Program requirements */}
+          {/* Program requirements — kept in bg-card */}
           <div className="mt-14">
             <h3 className="font-serif text-xl font-semibold">
               Program requirements
@@ -333,7 +345,7 @@ export default function TeacherTrainingPage() {
         </Container>
       </section>
 
-      {/* Tuition — white breather */}
+      {/* Tuition — includes the CTA block moved up from the bottom */}
       <section
         data-theme="polestar-light"
         className="bg-background text-foreground py-20 sm:py-24"
@@ -364,14 +376,9 @@ export default function TeacherTrainingPage() {
             Pricing is shown in USD and set by Polestar. Confirm current figures on
             the official registration page.
           </p>
-        </Container>
-      </section>
 
-      {/* Registration / CTA */}
-      <section className="relative isolate overflow-hidden py-20 sm:py-24">
-        <div aria-hidden className="polestar-aurora absolute inset-0 -z-10" />
-        <Container>
-          <Card className="bg-card p-8 sm:p-12">
+          {/* Ready to begin — moved up from the bottom section */}
+          <Card className="mt-10 bg-card p-8 sm:p-12">
             <div className="grid items-center gap-8 lg:grid-cols-[1.4fr_1fr]">
               <div>
                 <h2 className="font-serif text-2xl font-semibold sm:text-3xl">
