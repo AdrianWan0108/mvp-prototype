@@ -2,6 +2,7 @@ import { Container } from "./components/container";
 import { Hero } from "./components/home/hero";
 import { NeedsFunnel } from "./components/home/needs-funnel";
 import { ServicesOverview } from "./components/home/services-overview";
+import { EquipmentShowcase } from "./components/home/equipment-showcase";
 import { PolestarHighlight } from "./components/home/polestar-highlight";
 import { BrandReveal } from "./components/home/brand-reveal";
 import { CoreValues } from "./components/home/core-values";
@@ -30,8 +31,7 @@ export default function Home() {
     <>
       <Hero />
 
-      <NeedsFunnel />
-
+      {/* WHY MVP — welcome / value props */}
       <section className="bg-muted/40 py-16">
         <Container>
           <p className="max-w-3xl font-serif text-2xl leading-snug sm:text-3xl">
@@ -53,9 +53,11 @@ export default function Home() {
         </Container>
       </section>
 
+      <NeedsFunnel />
       <ServicesOverview />
-      <CoreValues />
+      <EquipmentShowcase />
       <BrandReveal />
+      <CoreValues />
       <PolestarHighlight />
       <Testimonials />
       <BlogSection />
