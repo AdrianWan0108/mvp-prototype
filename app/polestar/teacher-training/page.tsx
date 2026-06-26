@@ -137,7 +137,7 @@ export default function TeacherTrainingPage() {
       />
 
       {/* Hero — polestar-frontdoor.jpg full overlay, taller */}
-      <section className="relative isolate overflow-hidden pb-24">
+      <section className="relative isolate overflow-hidden pb-28">
         <div className="absolute inset-0 -z-10">
           <Image
             src={photos.polestarFrontDoor.src}
@@ -174,57 +174,69 @@ export default function TeacherTrainingPage() {
         </Container>
       </section>
 
-      {/* Key facts — 4 cards overlapping both hero and the section below */}
-      <div className="relative z-10 -mt-20">
-        <Container>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {facts.map((fact) => (
-              <Card key={fact.label} className="p-5 shadow-lg">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
-                  {fact.label}
-                </p>
-                <p className="mt-1 font-serif text-lg">{fact.value}</p>
-              </Card>
-            ))}
-          </div>
-        </Container>
-      </div>
-
-      {/* The big idea — program overview with Polestar logo as background */}
+      {/* The big idea — program overview with Polestar logo watermark.
+         The fact cards are the FIRST child here, pulled up with a negative
+         margin so their top half overlaps the dark hero above while their
+         bottom half rests on this white section. No overflow-hidden, or the
+         overhanging top of the cards would be clipped. */}
       <section
         data-theme="polestar-light"
-        className="relative overflow-hidden bg-background text-foreground pt-28 pb-20 sm:pt-32 sm:pb-24"
+        className="relative bg-background text-foreground pb-32 sm:pb-40"
       >
-        <div className="absolute inset-0 -z-0 flex items-center justify-center pointer-events-none">
+        {/* Polestar logo watermark — contained + centered so it reads as an
+           intentional, faint background mark rather than a full-bleed stretch. */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 flex items-center justify-center"
+        >
           <Image
             src="/mvp-prototype/assets/photos/polestar-logo/POLESTAR_TM_-_Default_Logo.png"
             alt=""
-            aria-hidden
-            fill
-            sizes="100vw"
-            className="object-contain opacity-[0.07]"
+            width={560}
+            height={560}
+            className="w-full max-w-md opacity-[0.06] sm:max-w-lg"
           />
         </div>
-        <Container className="relative z-10 max-w-3xl">
-          <SectionHeading
-            eyebrow="The program"
-            title="Enter your Pilates era"
-            intro="One comprehensive program takes you from dedicated practitioner to confident, internationally certified instructor."
-          />
-          <div className="mt-6 space-y-4 text-base leading-relaxed text-foreground/90">
-            <p>
-              In Polestar&rsquo;s 450-hour Pilates Teacher Training, you&rsquo;ll
-              master over 130 exercises across the full Pilates apparatus — Mat,
-              Reformer, Trapeze Table, Ladder Barrel, Spine Corrector, and Chair.
-              You&rsquo;ll learn the science behind Polestar&rsquo;s 5 Principles of
-              Movement and develop your own confident teaching voice.
-            </p>
-            <p>
-              Coursework blends in-person labs, live virtual sessions, case studies,
-              and homework, with access to Polestar&rsquo;s Virtual Pilates Studio.
-              On graduation, your Polestar diploma qualifies you to teach at studios
-              internationally.
-            </p>
+
+        <Container className="relative z-10">
+          {/* Key facts — 4 dark cards straddling the hero/section boundary */}
+          <div className="-mt-20 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {facts.map((fact) => (
+              <div
+                key={fact.label}
+                className="rounded-2xl border border-brand-700 bg-brand-900 p-5 shadow-xl"
+              >
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-300">
+                  {fact.label}
+                </p>
+                <p className="mt-1 font-serif text-lg text-brand-50">
+                  {fact.value}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mx-auto mt-24 max-w-3xl">
+            <SectionHeading
+              eyebrow="The program"
+              title="Enter your Pilates era"
+              intro="One comprehensive program takes you from dedicated practitioner to confident, internationally certified instructor."
+            />
+            <div className="mt-6 space-y-4 text-base leading-relaxed text-foreground/90">
+              <p>
+                In Polestar&rsquo;s 450-hour Pilates Teacher Training, you&rsquo;ll
+                master over 130 exercises across the full Pilates apparatus — Mat,
+                Reformer, Trapeze Table, Ladder Barrel, Spine Corrector, and Chair.
+                You&rsquo;ll learn the science behind Polestar&rsquo;s 5 Principles of
+                Movement and develop your own confident teaching voice.
+              </p>
+              <p>
+                Coursework blends in-person labs, live virtual sessions, case studies,
+                and homework, with access to Polestar&rsquo;s Virtual Pilates Studio.
+                On graduation, your Polestar diploma qualifies you to teach at studios
+                internationally.
+              </p>
+            </div>
           </div>
         </Container>
       </section>
@@ -262,8 +274,12 @@ export default function TeacherTrainingPage() {
         </Container>
       </section>
 
-      {/* Schedule — lighter background, Program requirements cards keep bg-card */}
-      <section className="bg-secondary text-foreground py-20 sm:py-24">
+      {/* Schedule — light-tinted background with dark text. Program
+         requirements now share the right column with the online sessions. */}
+      <section
+        data-theme="polestar-light"
+        className="bg-secondary text-foreground py-20 sm:py-24"
+      >
         <Container>
           <SectionHeading
             eyebrow="Important dates"
@@ -294,52 +310,54 @@ export default function TeacherTrainingPage() {
                 ))}
               </ul>
             </div>
-            {/* Online */}
-            <div>
-              <h3 className="font-serif text-xl font-semibold">
-                Live online sessions
-              </h3>
-              <p className="mt-1 text-sm text-muted-foreground">
-                Rolling sessions · 12:00 – 1:00 PM CST
-              </p>
-              <ul className="mt-6 divide-y divide-border border-y border-border">
-                {scheduleOnline.map((row) => (
-                  <li
-                    key={row.when}
-                    className="flex items-baseline justify-between gap-4 py-3"
-                  >
-                    <span className="text-sm font-medium text-foreground/90">
-                      {row.when}
-                    </span>
-                    <span className="text-right text-sm text-muted-foreground">
-                      {row.what}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-4 text-sm text-muted-foreground">
-                Students must attend a minimum of 6 Case Study sessions and 6
-                Movement Workshops over the entirety of the course.
-              </p>
-            </div>
-          </div>
+            {/* Online + Program requirements stacked in the right column */}
+            <div className="space-y-12">
+              <div>
+                <h3 className="font-serif text-xl font-semibold">
+                  Live online sessions
+                </h3>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Rolling sessions · 12:00 – 1:00 PM CST
+                </p>
+                <ul className="mt-6 divide-y divide-border border-y border-border">
+                  {scheduleOnline.map((row) => (
+                    <li
+                      key={row.when}
+                      className="flex items-baseline justify-between gap-4 py-3"
+                    >
+                      <span className="text-sm font-medium text-foreground/90">
+                        {row.when}
+                      </span>
+                      <span className="text-right text-sm text-muted-foreground">
+                        {row.what}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-4 text-sm text-muted-foreground">
+                  Students must attend a minimum of 6 Case Study sessions and 6
+                  Movement Workshops over the entirety of the course.
+                </p>
+              </div>
 
-          {/* Program requirements — kept in bg-card */}
-          <div className="mt-14">
-            <h3 className="font-serif text-xl font-semibold">
-              Program requirements
-            </h3>
-            <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {requirements.map((req) => (
-                <Card key={req.label} className="p-5">
-                  <p className="font-serif text-2xl font-semibold text-primary">
-                    {req.value}
-                  </p>
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    {req.label}
-                  </p>
-                </Card>
-              ))}
+              {/* Program requirements — 2×2 grid */}
+              <div>
+                <h3 className="font-serif text-xl font-semibold">
+                  Program requirements
+                </h3>
+                <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                  {requirements.map((req) => (
+                    <Card key={req.label} className="p-5">
+                      <p className="font-serif text-2xl font-semibold text-primary">
+                        {req.value}
+                      </p>
+                      <p className="mt-1 text-sm text-muted-foreground">
+                        {req.label}
+                      </p>
+                    </Card>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </Container>
@@ -358,7 +376,7 @@ export default function TeacherTrainingPage() {
           />
           <div className="mt-10 grid gap-6 lg:grid-cols-3">
             {pricingOptions.map((opt) => (
-              <Card key={opt.name} className="flex flex-col p-6">
+              <Card key={opt.name} className="flex flex-col bg-secondary p-6">
                 <h3 className="font-serif text-lg font-semibold">{opt.name}</h3>
                 <p className="mt-2 text-2xl font-semibold text-primary">
                   {opt.headline}
@@ -377,14 +395,15 @@ export default function TeacherTrainingPage() {
             the official registration page.
           </p>
 
-          {/* Ready to begin — moved up from the bottom section */}
-          <Card className="mt-10 bg-card p-8 sm:p-12">
+          {/* Ready to begin — moved up from the bottom section. Dark surface so
+             it stands out as the closing call-to-action on the white section. */}
+          <div className="mt-10 rounded-2xl border border-brand-700 bg-brand-900 p-8 text-brand-50 shadow-xl sm:p-12">
             <div className="grid items-center gap-8 lg:grid-cols-[1.4fr_1fr]">
               <div>
                 <h2 className="font-serif text-2xl font-semibold sm:text-3xl">
                   Ready to begin your Polestar journey?
                 </h2>
-                <p className="mt-3 text-base leading-relaxed text-muted-foreground">
+                <p className="mt-3 text-base leading-relaxed text-brand-200">
                   Spaces in the inaugural Canadian cohort are limited. Register
                   through Polestar, or reach out and we&rsquo;ll walk you through
                   everything.
@@ -394,12 +413,12 @@ export default function TeacherTrainingPage() {
                 <CtaButton href={links.polestarRegister} size="lg">
                   Register Now
                 </CtaButton>
-                <CtaButton href="/contact" size="lg" variant="outline">
+                <CtaButton href="/contact" size="lg" variant="secondary">
                   Ask a Question
                 </CtaButton>
               </div>
             </div>
-          </Card>
+          </div>
         </Container>
       </section>
     </>
