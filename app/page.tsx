@@ -1,11 +1,13 @@
 import { Container } from "./components/container";
 import { Hero } from "./components/home/hero";
+import { NeedsFunnel } from "./components/home/needs-funnel";
 import { ServicesOverview } from "./components/home/services-overview";
 import { PolestarHighlight } from "./components/home/polestar-highlight";
 import { BrandReveal } from "./components/home/brand-reveal";
 import { CoreValues } from "./components/home/core-values";
 import { GetStarted } from "./components/home/get-started";
 import { Testimonials } from "./components/home/testimonials";
+import { BlogSection } from "./components/home/blog-section";
 import { CtaBand } from "./components/home/cta-band";
 
 const values = [
@@ -27,6 +29,8 @@ export default function Home() {
   return (
     <>
       <Hero />
+
+      <NeedsFunnel />
 
       <section className="bg-muted/40 py-16">
         <Container>
@@ -54,6 +58,7 @@ export default function Home() {
       <BrandReveal />
       <PolestarHighlight />
       <Testimonials />
+      <BlogSection />
       <GetStarted />
       <CtaBand />
     </>
