@@ -67,7 +67,16 @@ export function SiteHeader() {
         hidden && !open ? "-translate-y-full" : "translate-y-0",
       )}
     >
-      <div className="flex h-20 w-full items-center justify-between gap-3 px-5 sm:px-8 lg:px-10 xl:px-12">
+      <div
+        className={cn(
+          "flex h-20 w-full items-center justify-between gap-3",
+          // Home: full-bleed so the bar reaches near the screen edges on large
+          // screens. Other pages: the standard centered content width.
+          isHome
+            ? "px-5 sm:px-8 lg:px-10 xl:px-12"
+            : "mx-auto max-w-6xl px-5 sm:px-8",
+        )}
+      >
         <div className="flex items-center gap-3">
           <Link
             href="/"
