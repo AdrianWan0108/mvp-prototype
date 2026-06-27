@@ -16,6 +16,7 @@
 export type Photo = { src: string; alt: string };
 
 const base = "/mvp-prototype/assets/photos";
+const opt = "/mvp-prototype/assets/photos-optimized";
 
 export const photos = {
   // --- Brand ---
@@ -25,7 +26,7 @@ export const photos = {
   },
 
   heroBg: {
-    src: `${base}/polestar-logo/Hero.png`,
+    src: `${opt}/polestar-logo/Hero.webp`,
     alt: "Pilates instructor performing an inverted hang on the Cadillac trapeze table, showing control and mobility.",
   },
 
@@ -36,7 +37,7 @@ export const photos = {
 
   // --- Studio ---
   studioReformerFloor: {
-    src: `${base}/studio-interior/reformer-environment.jpg`,
+    src: `${opt}/studio-interior/reformer-environment.webp`,
     alt: "Bright, mirrored reformer studio at Motion Vitality Pilates in Markham, lined with Pilates reformers and TRX straps.",
   },
   heritageWall: {
@@ -44,7 +45,7 @@ export const photos = {
     alt: "Gallery wall of vintage black-and-white photographs of Joseph Pilates teaching the original Pilates method.",
   },
   entranceWall: {
-    src: `${base}/studio-interior/entrance-wall.jpg`,
+    src: `${opt}/studio-interior/entrance-wall.webp`,
     alt: "Entrance wall at Motion Vitality Pilates welcoming clients into the studio.",
   },
   polestarOnWall: {
@@ -56,35 +57,35 @@ export const photos = {
     alt: "Front entrance of Motion Vitality Pilates featuring the Polestar Pilates branding.",
   },
   spineFigure: {
-    src: `${base}/studio-interior/spine-figure.jpg`,
+    src: `${opt}/studio-interior/spine-figure.webp`,
     alt: "Anatomical spine model used to explain movement and rehabilitation at the studio.",
   },
 
   // --- Equipment (one per signature class) ---
   reformer: {
-    src: `${base}/equipment/reformer-1.jpg`,
+    src: `${opt}/equipment/reformer-1.webp`,
     alt: "Pilates reformer with carriage, springs, and footbar at Motion Vitality Pilates.",
   },
   gyrotonic: {
-    src: `${base}/equipment/gyrotonic-1.jpg`,
+    src: `${opt}/equipment/gyrotonic-1.webp`,
     alt: "GYROTONIC® pulley tower combination unit for circular, flowing movement.",
   },
   konnector: {
-    src: `${base}/equipment/konnector-1.jpg`,
+    src: `${opt}/equipment/konnector-1.webp`,
     alt: "Konnector® apparatus attached to a reformer for connected, full-body Pilates.",
   },
   wundaChair: {
-    src: `${base}/equipment/wunda-chair-1.jpg`,
+    src: `${opt}/equipment/wunda-chair-1.webp`,
     alt: "Pilates Wunda chair used for strength and balance training.",
   },
   barrel: {
-    src: `${base}/equipment/barrel-1.jpg`,
+    src: `${opt}/equipment/barrel-1.webp`,
     alt: "Pilates ladder barrel used for spinal extension and stretching.",
   },
 
   // --- People ---
   team: {
-    src: `${base}/instructor-team/team-under-polestar-logo.jpg`,
+    src: `${opt}/instructor-team/team-under-polestar-logo.webp`,
     alt: "The Motion Vitality Pilates instructor team smiling together beneath the Polestar Pilates sign.",
   },
   teamPolestar: {
@@ -92,15 +93,15 @@ export const photos = {
     alt: "The Motion Vitality Pilates instructor team together, trained in the Polestar method.",
   },
   garyHeadshot: {
-    src: `${base}/instructor-headshots/gary-headshot-1.jpg`,
+    src: `${opt}/instructor-headshots/gary-headshot-1.webp`,
     alt: "Portrait of Gary Fok, founder of Motion Vitality Pilates, in a Polestar Canada shirt.",
   },
   dorothyHeadshot: {
-    src: `${base}/instructor-headshots/dorothy-headshot-1.jpg`,
+    src: `${opt}/instructor-headshots/dorothy-headshot-1.webp`,
     alt: "Portrait of Dorothy, Pilates instructor at Motion Vitality Pilates.",
   },
   florenceHeadshot: {
-    src: `${base}/instructor-headshots/florance-headshot-1.jpg`,
+    src: `${opt}/instructor-headshots/florance-headshot-1.webp`,
     alt: "Portrait of Florence, Pilates instructor at Motion Vitality Pilates.",
   },
 
@@ -110,21 +111,21 @@ export const photos = {
     alt: "Pilates instructor demonstrating a strong, balanced standing movement at Motion Vitality Pilates.",
   },
   garyPose: {
-    src: `${base}/pilates-pose/Gary/gary-pose-1.jpg`,
+    src: `${opt}/pilates-pose/Gary/gary-pose-1.webp`,
     alt: "Instructor demonstrating a controlled Pilates movement, showing strength and alignment.",
   },
   dorothyPose: {
-    src: `${base}/pilates-pose/Dorothy/dorothy-pose-1.jpg`,
+    src: `${opt}/pilates-pose/Dorothy/dorothy-pose-1.webp`,
     alt: "Instructor demonstrating a Pilates pose emphasizing core control and flexibility.",
   },
   florencePose: {
-    src: `${base}/pilates-pose/Florence/florance-pose-1.jpg`,
+    src: `${opt}/pilates-pose/Florence/florance-pose-1.webp`,
     alt: "Instructor demonstrating a graceful, balanced Pilates movement.",
   },
 
   // --- Teaching ---
   privateSession: {
-    src: `${base}/instructor-teaching-students-private-class/Dorothy/dorothy-private-1.jpg`,
+    src: `${opt}/instructor-teaching-students-private-class/Dorothy/dorothy-private-1.webp`,
     alt: "Pilates instructor giving hands-on cues to a client during a private one-on-one reformer session.",
   },
 
