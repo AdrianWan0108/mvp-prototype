@@ -34,30 +34,50 @@ const values = [
 const last = values.length - 1;
 
 export function CoreValues() {
+  // Desktop reveals on hover (starts blank); mobile has no hover, so it taps to
+  // reveal and defaults to the first value ("Collaboration") selected.
   const [active, setActive] = useState<number | null>(null);
+  const [mobileActive, setMobileActive] = useState<number | null>(0);
 
   return (
     <section className="relative isolate overflow-hidden bg-brand-900 text-white">
-      {/* Per-word background photos — dissolve in on hover (inline timing so it
-          never hard-cuts) */}
-      {values.map((value, i) => (
-        <Image
-          key={value.title}
-          src={value.photo.src}
-          alt=""
-          aria-hidden
-          fill
-          sizes="100vw"
-          // Bias the framing slightly upward so more of the (tall) image's
-          // upper portion shows, without going all the way to the top.
-          className="object-cover"
-          style={{
-            objectPosition: value.objectPosition ?? "center 30%",
-            opacity: active === i ? 1 : 0,
-            transition: "opacity 500ms ease-in-out",
-          }}
-        />
-      ))}
+      {/* Per-value background photos — dissolve in (inline timing so it never
+          hard-cuts). Split per breakpoint so mobile/desktop track their own
+          selection state. */}
+      <div aria-hidden className="absolute inset-0 hidden lg:block">
+        {values.map((value, i) => (
+          <Image
+            key={value.title}
+            src={value.photo.src}
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover"
+            style={{
+              objectPosition: value.objectPosition ?? "center 30%",
+              opacity: active === i ? 1 : 0,
+              transition: "opacity 500ms ease-in-out",
+            }}
+          />
+        ))}
+      </div>
+      <div aria-hidden className="absolute inset-0 lg:hidden">
+        {values.map((value, i) => (
+          <Image
+            key={value.title}
+            src={value.photo.src}
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover"
+            style={{
+              objectPosition: value.objectPosition ?? "center 30%",
+              opacity: mobileActive === i ? 1 : 0,
+              transition: "opacity 500ms ease-in-out",
+            }}
+          />
+        ))}
+      </div>
       <div aria-hidden className="absolute inset-0 bg-brand-900/70" />
 
       <Container className="relative pt-20 sm:pt-24">
@@ -69,8 +89,44 @@ export function CoreValues() {
         </h2>
       </Container>
 
-      {/* Interactive row — full-bleed so the words use the whole width */}
-      <div className="relative mt-16 h-[34rem] w-full">
+      {/* Mobile: stacked, tap to reveal (no hover on touch). Each title sits on
+          its own row so they never crowd, and tapping expands its summary and
+          dissolves in the matching background photo. */}
+      <div className="relative mt-12 flex flex-col divide-y divide-white/15 px-6 pb-16 lg:hidden">
+        {values.map((value, i) => {
+          const isOn = mobileActive === i;
+          return (
+            <button
+              key={value.title}
+              type="button"
+              onClick={() => setMobileActive(isOn ? null : i)}
+              aria-expanded={isOn}
+              className="flex w-full flex-col items-center py-5 text-center"
+            >
+              <span
+                className={cn(
+                  "font-serif text-2xl font-semibold transition-colors duration-300 sm:text-3xl",
+                  isOn ? "text-brand-200" : "text-white",
+                )}
+              >
+                {value.title}
+              </span>
+              {/* 0fr → 1fr gives a smooth height transition without measuring. */}
+              <div
+                className="grid w-full transition-[grid-template-rows] duration-300 ease-out"
+                style={{ gridTemplateRows: isOn ? "1fr" : "0fr" }}
+              >
+                <p className="overflow-hidden font-serif text-base leading-relaxed text-white/90">
+                  <span className="block pt-3">{value.body}</span>
+                </p>
+              </div>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Desktop: interactive row — full-bleed so the words use the whole width */}
+      <div className="relative mt-16 hidden h-[34rem] w-full lg:block">
         {/* Full-height hover columns: hovering anywhere above or below a word
             (its whole column) triggers that value's effect, not just the word. */}
         <div className="absolute inset-0 flex px-4 sm:px-8">

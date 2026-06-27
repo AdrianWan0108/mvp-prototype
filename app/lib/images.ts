@@ -136,6 +136,10 @@ export const photos = {
     src: `${opt}/instructor-teaching-students-private-class/Dorothy/dorothy-private-1.webp`,
     alt: "Pilates instructor giving hands-on cues to a client during a private one-on-one reformer session.",
   },
+  groupClass: {
+    src: `${base}/instructor-teaching-students-group-class/Gary/gary-group-1.JPG`,
+    alt: "Gary Fok leading a small group reformer class at Motion Vitality Pilates in Markham.",
+  },
 
   // --- Polestar community (teacher-training context) ---
   polestarFaculty: {
