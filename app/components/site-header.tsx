@@ -67,7 +67,7 @@ export function SiteHeader() {
         hidden && !open ? "-translate-y-full" : "translate-y-0",
       )}
     >
-      <Container className="flex h-16 items-center justify-between gap-3">
+      <div className="flex h-20 w-full items-center justify-between gap-3 px-5 sm:px-8 lg:px-10 xl:px-12">
         <div className="flex items-center gap-3">
           <Link
             href="/"
@@ -81,7 +81,7 @@ export function SiteHeader() {
               height={40}
               priority
               className={cn(
-                "h-7 w-auto transition-[filter]",
+                "h-9 w-auto transition-[filter]",
                 transparent && "brightness-0 invert",
               )}
             />
@@ -96,7 +96,7 @@ export function SiteHeader() {
                   href={item.href}
                   aria-haspopup="true"
                   className={cn(
-                    "flex items-center gap-1 px-3 py-2 text-base font-medium underline-offset-8 transition-colors hover:underline hover:decoration-2",
+                    "flex items-center gap-1 px-3 py-2 text-lg font-medium underline-offset-8 transition-colors hover:underline hover:decoration-2",
                     navLink(isActive(pathname, item.href)),
                   )}
                 >
@@ -141,7 +141,7 @@ export function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "px-3 py-2 text-base font-medium underline-offset-8 transition-colors hover:underline hover:decoration-2",
+                  "px-3 py-2 text-lg font-medium underline-offset-8 transition-colors hover:underline hover:decoration-2",
                   navLink(isActive(pathname, item.href)),
                 )}
               >
@@ -189,7 +189,7 @@ export function SiteHeader() {
             )}
           </svg>
         </button>
-      </Container>
+      </div>
 
       {open && (
         <div

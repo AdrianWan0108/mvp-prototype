@@ -101,9 +101,9 @@ function HeroCopy() {
 
 export function Hero() {
   return (
-    // -mt-16 pulls the section up under the transparent site header so the
-    // background image runs behind it.
-    <section className="relative isolate -mt-16 overflow-hidden bg-brand-900 text-white">
+    // -mt-20 pulls the section up under the transparent site header (h-20) so
+    // the background image runs behind it.
+    <section className="relative isolate -mt-20 overflow-hidden bg-brand-900 text-white">
       {/* ---- Desktop (lg+): original full-bleed image with copy overlaid ---- */}
       <div className="relative hidden min-h-screen items-center lg:flex">
         {/* Full-bleed hero image (cropped slightly toward the top to trim the
