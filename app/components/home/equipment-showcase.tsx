@@ -72,10 +72,10 @@ export function EquipmentShowcase() {
 
             {/* Centered text */}
             <div className="absolute inset-0 flex flex-col items-center justify-center px-5 text-center">
-              <h3 className="font-serif text-2xl font-semibold text-white drop-shadow-lg transition-all duration-500 ease-out sm:text-3xl lg:translate-y-4 lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:opacity-100 lg:group-hover:delay-100">
+              <h3 className="font-serif text-2xl font-semibold text-white drop-shadow-lg sm:text-3xl motion-safe:lg:opacity-0 motion-safe:lg:group-hover:animate-[equip-rise_0.6s_ease-out_0.05s_forwards]">
                 {item.name}
               </h3>
-              <p className="mt-3 max-w-[17rem] text-base leading-relaxed text-white/90 drop-shadow transition-all duration-500 ease-out lg:max-h-0 lg:translate-y-4 lg:overflow-hidden lg:opacity-0 lg:group-hover:max-h-48 lg:group-hover:translate-y-0 lg:group-hover:opacity-100 lg:group-hover:delay-300">
+              <p className="mt-3 max-w-[17rem] text-base leading-relaxed text-white/90 drop-shadow motion-safe:lg:opacity-0 motion-safe:lg:group-hover:animate-[equip-rise_0.6s_ease-out_0.25s_forwards]">
                 {item.blurb}
               </p>
             </div>

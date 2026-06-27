@@ -10,7 +10,9 @@ const values = [
   {
     title: "Collaboration",
     body: "Open, clear communication that builds trust, empathy, and a real community spirit.",
-    photo: photos.team,
+    photo: photos.team_2,
+    // This tall image needs a lower focal point than the rest.
+    objectPosition: "center 45%",
   },
   {
     title: "Humility",
@@ -46,10 +48,13 @@ export function CoreValues() {
           aria-hidden
           fill
           sizes="100vw"
+          // Bias the framing slightly upward so more of the (tall) image's
+          // upper portion shows, without going all the way to the top.
           className="object-cover"
           style={{
+            objectPosition: value.objectPosition ?? "center 30%",
             opacity: active === i ? 1 : 0,
-            transition: "opacity 1000ms ease-in-out",
+            transition: "opacity 500ms ease-in-out",
           }}
         />
       ))}
@@ -65,7 +70,20 @@ export function CoreValues() {
       </Container>
 
       {/* Interactive row — full-bleed so the words use the whole width */}
-      <div className="relative mt-16 h-[26rem] w-full">
+      <div className="relative mt-16 h-[34rem] w-full">
+        {/* Full-height hover columns: hovering anywhere above or below a word
+            (its whole column) triggers that value's effect, not just the word. */}
+        <div className="absolute inset-0 flex px-4 sm:px-8">
+          {values.map((value, i) => (
+            <div
+              key={value.title}
+              onMouseEnter={() => setActive(i)}
+              onMouseLeave={() => setActive(null)}
+              className="flex-1"
+            />
+          ))}
+        </div>
+
         {/* Summaries — all centered in the same spot, mid-section */}
         <div className="pointer-events-none absolute inset-x-0 bottom-[14rem] flex justify-center px-6">
           <div className="relative h-36 w-full max-w-2xl">
@@ -75,7 +93,7 @@ export function CoreValues() {
                 className="absolute inset-0 flex items-center justify-center text-center font-serif text-xl leading-relaxed text-white sm:text-2xl"
                 style={{
                   opacity: active === i ? 1 : 0,
-                  transition: "opacity 500ms ease",
+                  transition: "opacity 300ms ease",
                 }}
               >
                 {value.body}
@@ -84,15 +102,10 @@ export function CoreValues() {
           </div>
         </div>
 
-        {/* Words */}
-        <div className="absolute inset-x-0 bottom-[7.5rem] flex px-4 sm:px-8">
+        {/* Words — non-interactive; the full-height columns above handle hover */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-[7.5rem] flex px-4 sm:px-8">
           {values.map((value, i) => (
-            <div
-              key={value.title}
-              onMouseEnter={() => setActive(i)}
-              onMouseLeave={() => setActive(null)}
-              className="flex-1 text-center"
-            >
+            <div key={value.title} className="flex-1 text-center">
               <span
                 className={cn(
                   "cursor-default font-serif text-3xl font-semibold transition-colors duration-300 sm:text-4xl lg:text-5xl",
@@ -119,8 +132,8 @@ export function CoreValues() {
               // accelerates out (slow → fast) to the edge over ~2.8s. Retracts
               // quickly on leave.
               const lineTransition = isOn
-                ? "width 2800ms cubic-bezier(0.7,0,0.84,0) 0ms"
-                : "width 300ms ease-out 0ms";
+                ? "width 1000ms cubic-bezier(0.7,0,0.84,0) 0ms"
+                : "width 250ms ease-out 0ms";
               return (
                 <div key={value.title}>
                   {/* line growing right from the dot */}
@@ -149,7 +162,7 @@ export function CoreValues() {
                     style={{
                       left: `${center}%`,
                       opacity: isOn ? 1 : 0,
-                      transition: "opacity 600ms ease-in-out 0ms",
+                      transition: "opacity 300ms ease-in-out 0ms",
                     }}
                   />
                 </div>

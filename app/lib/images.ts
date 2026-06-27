@@ -92,6 +92,10 @@ export const photos = {
     src: `${opt}/instructor-team/team-under-polestar-logo.webp`,
     alt: "The Motion Vitality Pilates instructor team smiling together beneath the Polestar Pilates sign.",
   },
+  team_2: {
+    src: `${base}/instructor-team/team-under-polestar-logo-2.jpg`,
+    alt: "The Motion Vitality Pilates instructor team smiling together beneath the Polestar Pilates sign.",
+  },
   teamPolestar: {
     src: `${base}/instructor-team/team-mvp-polestar.jpg`,
     alt: "The Motion Vitality Pilates instructor team together, trained in the Polestar method.",
