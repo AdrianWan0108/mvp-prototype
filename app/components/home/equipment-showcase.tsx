@@ -50,14 +50,14 @@ export function EquipmentShowcase() {
   const [active, setActive] = useState<number | null>(null);
 
   return (
-    <section className="bg-brand-900 py-20 text-white sm:py-24">
+    <section className="bg-[color-mix(in_oklab,var(--brand-300),var(--brand-700)_25%)] py-20 sm:py-24">
       <Container>
         <SectionHeading
           align="center"
           eyebrow="Equipment & methods"
           title="Trained on the full studio"
           intro="From the reformer to the Cadillac — professional apparatus for every body and goal."
-          className="[&_h2]:text-white [&_p]:text-white/70"
+          className="[&_p:first-of-type]:text-brand-900"
         />
       </Container>
 

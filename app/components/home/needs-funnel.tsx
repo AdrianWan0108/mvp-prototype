@@ -134,7 +134,7 @@ function NeedCta({
     <div
       style={{ transition: ctaTransition }}
       className={cn(
-        "relative z-0 hidden scale-90 items-center justify-center opacity-0 lg:flex",
+        "relative z-0 hidden scale-90 items-center justify-center opacity-0 lg:flex lg:aspect-[4/3]",
         need.enter,
         need.reveal,
         "hover:translate-x-0 hover:scale-100 hover:opacity-100 focus-within:translate-x-0 focus-within:scale-100 focus-within:opacity-100",

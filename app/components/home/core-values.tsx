@@ -40,7 +40,7 @@ export function CoreValues() {
   const [mobileActive, setMobileActive] = useState<number | null>(0);
 
   return (
-    <section className="relative isolate overflow-hidden bg-brand-900 text-white">
+    <section className="relative isolate overflow-hidden bg-[color-mix(in_oklab,var(--brand-300),var(--brand-700)_25%)]">
       {/* Per-value background photos — dissolve in (inline timing so it never
           hard-cuts). Split per breakpoint so mobile/desktop track their own
           selection state. */}
@@ -78,10 +78,10 @@ export function CoreValues() {
           />
         ))}
       </div>
-      <div aria-hidden className="absolute inset-0 bg-brand-900/70" />
+      <div aria-hidden className="absolute inset-0 bg-[color-mix(in_oklab,transparent,color-mix(in_oklab,var(--brand-300),var(--brand-700)_25%)_75%)]" />
 
       <Container className="relative pt-20 sm:pt-24">
-        <p className="mb-3 text-center text-sm font-semibold uppercase tracking-[0.22em] text-white/70">
+        <p className="mb-3 text-center text-sm font-semibold uppercase tracking-[0.22em] text-muted-foreground">
           What we stand for
         </p>
         <h2 className="text-center font-serif text-3xl font-semibold sm:text-4xl">
@@ -92,7 +92,7 @@ export function CoreValues() {
       {/* Mobile: stacked, tap to reveal (no hover on touch). Each title sits on
           its own row so they never crowd, and tapping expands its summary and
           dissolves in the matching background photo. */}
-      <div className="relative mt-12 flex flex-col divide-y divide-white/15 px-6 pb-16 lg:hidden">
+      <div className="relative mt-12 flex flex-col divide-y divide-brand-900/15 px-6 pb-16 lg:hidden">
         {values.map((value, i) => {
           const isOn = mobileActive === i;
           return (
@@ -106,7 +106,7 @@ export function CoreValues() {
               <span
                 className={cn(
                   "font-serif text-2xl font-semibold transition-colors duration-300 sm:text-3xl",
-                  isOn ? "text-brand-200" : "text-white",
+                  isOn ? "text-brand-700" : "text-foreground",
                 )}
               >
                 {value.title}
@@ -116,7 +116,7 @@ export function CoreValues() {
                 className="grid w-full transition-[grid-template-rows] duration-300 ease-out"
                 style={{ gridTemplateRows: isOn ? "1fr" : "0fr" }}
               >
-                <p className="overflow-hidden font-serif text-base leading-relaxed text-white/90">
+                <p className="overflow-hidden font-serif text-base leading-relaxed text-muted-foreground">
                   <span className="block pt-3">{value.body}</span>
                 </p>
               </div>
@@ -126,7 +126,7 @@ export function CoreValues() {
       </div>
 
       {/* Desktop: interactive row — full-bleed so the words use the whole width */}
-      <div className="relative mt-16 hidden h-[34rem] w-full lg:block">
+      <div className="relative mt-16 hidden h-[clamp(34rem,40vw,48rem)] w-full lg:block">
         {/* Full-height hover columns: hovering anywhere above or below a word
             (its whole column) triggers that value's effect, not just the word. */}
         <div className="absolute inset-0 flex px-4 sm:px-8">
@@ -146,7 +146,7 @@ export function CoreValues() {
             {values.map((value, i) => (
               <p
                 key={value.title}
-                className="absolute inset-0 flex items-center justify-center text-center font-serif text-xl leading-relaxed text-white sm:text-2xl"
+                className="absolute inset-0 flex items-center justify-center text-center font-serif text-xl leading-relaxed text-foreground sm:text-2xl"
                 style={{
                   opacity: active === i ? 1 : 0,
                   transition: "opacity 300ms ease",
@@ -166,8 +166,8 @@ export function CoreValues() {
                 className={cn(
                   "cursor-default font-serif text-3xl font-semibold transition-colors duration-300 sm:text-4xl lg:text-5xl",
                   active !== null && active !== i
-                    ? "text-white/40"
-                    : "text-white",
+                    ? "text-foreground/40"
+                    : "text-foreground",
                 )}
               >
                 {value.title}
@@ -199,7 +199,7 @@ export function CoreValues() {
                       left: `${center}%`,
                       width: isOn ? `${rightWidth}%` : "0%",
                       transition: lineTransition,
-                      boxShadow: "0 0 8px rgba(145,208,175,0.85)",
+                      boxShadow: "0 0 8px rgba(209,235,221,0.75)",
                     }}
                   />
                   {/* line growing left from the dot */}
@@ -209,12 +209,12 @@ export function CoreValues() {
                       right: `${100 - center}%`,
                       width: isOn ? `${leftWidth}%` : "0%",
                       transition: lineTransition,
-                      boxShadow: "0 0 8px rgba(145,208,175,0.85)",
+                      boxShadow: "0 0 8px rgba(209,235,221,0.75)",
                     }}
                   />
                   {/* dot under the word — dissolves in first */}
                   <span
-                    className="absolute top-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-300 shadow-[0_0_12px_4px_rgba(145,208,175,0.9)]"
+                    className="absolute top-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand-200 shadow-[0_0_12px_4px_rgba(209,235,221,0.75)]"
                     style={{
                       left: `${center}%`,
                       opacity: isOn ? 1 : 0,

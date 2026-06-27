@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Container } from "../container";
 import { photos, mvpLogoReveal } from "@/app/lib/images";
 
@@ -14,18 +14,72 @@ import { photos, mvpLogoReveal } from "@/app/lib/images";
  */
 export function LogoReveal() {
   const [active, setActive] = useState<number | null>(null);
+  // Shapes revealed by the scroll-triggered sweep (independent of hover).
+  const [revealed, setRevealed] = useState<Set<number>>(new Set());
+  const logoRef = useRef<HTMLDivElement | null>(null);
   const photoSrc = photos.studioReformerFloor.src;
   const { aspect, fullMask, shapes } = mvpLogoReveal;
 
+  // When the logo scrolls fully into view, sweep a photo "wave" across its
+  // shapes left→right, then reset to the flat logo. Replays each re-entry.
+  useEffect(() => {
+    const el = logoRef.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let sweeping = false;
+    const timers: number[] = [];
+
+    const runSweep = () => {
+      if (sweeping) return;
+      sweeping = true;
+      const step = 140; // ms between each shape lighting up
+      shapes.forEach((_, i) => {
+        timers.push(
+          window.setTimeout(() => {
+            setRevealed((prev) => new Set(prev).add(i));
+          }, i * step),
+        );
+      });
+      // After the last shape, hold briefly, then return to the flat logo.
+      timers.push(
+        window.setTimeout(
+          () => {
+            setRevealed(new Set());
+            sweeping = false;
+          },
+          shapes.length * step + 400,
+        ),
+      );
+    };
+
+    // threshold:1 is unreliable (subpixel rounding rarely hits exactly 1.0),
+    // so fire once the logo is almost fully in view. Crossing back below the
+    // ratio and in again re-arms the sweep, so it replays on each re-entry.
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.intersectionRatio >= 0.9) runSweep();
+      },
+      { threshold: [0, 0.9, 1] },
+    );
+    observer.observe(el);
+
+    return () => {
+      observer.disconnect();
+      timers.forEach((id) => window.clearTimeout(id));
+    };
+  }, [shapes]);
+
   return (
-    <section className="relative isolate overflow-hidden bg-background py-24 sm:py-32">
-      <Container className="flex flex-col items-center gap-10 text-center">
+    <section className="relative isolate overflow-hidden bg-background py-14 sm:py-20">
+      <Container className="flex flex-col items-center gap-6 text-center">
         <p className="text-sm font-semibold uppercase tracking-[0.22em] text-muted-foreground">
           Step inside
         </p>
 
         {/* The logo, sized to its own aspect ratio so every mask registers. */}
         <div
+          ref={logoRef}
           role="img"
           aria-label={mvpLogoReveal.alt}
           className="relative w-full max-w-4xl"
@@ -61,7 +115,7 @@ export function LogoReveal() {
                 maskSize: "100% 100%",
                 WebkitMaskRepeat: "no-repeat",
                 maskRepeat: "no-repeat",
-                opacity: active === i ? 1 : 0,
+                opacity: active === i || revealed.has(i) ? 1 : 0,
                 transition: "opacity 450ms ease",
               }}
             />

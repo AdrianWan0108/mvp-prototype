@@ -3,7 +3,6 @@ import { Hero } from "./components/home/hero";
 import { NeedsFunnel } from "./components/home/needs-funnel";
 import { EquipmentShowcase } from "./components/home/equipment-showcase";
 import { PolestarHighlight } from "./components/home/polestar-highlight";
-import { BrandReveal } from "./components/home/brand-reveal";
 import { LogoReveal } from "./components/home/logo-reveal";
 import { CoreValues } from "./components/home/core-values";
 import { GalleryWall } from "./components/home/gallery-wall";
@@ -42,10 +41,10 @@ export default function Home() {
           <div className="mt-8 grid gap-8 sm:grid-cols-3">
             {values.map((value) => (
               <div key={value.title}>
-                <h2 className="font-serif text-lg font-semibold">
+                <h2 className="font-serif text-xl font-semibold sm:text-2xl">
                   {value.title}
                 </h2>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                <p className="mt-2 text-base leading-relaxed text-muted-foreground">
                   {value.body}
                 </p>
               </div>
@@ -56,7 +55,6 @@ export default function Home() {
 
       <NeedsFunnel />
       <EquipmentShowcase />
-      <BrandReveal />
       <LogoReveal />
       <CoreValues />
       <GalleryWall />
