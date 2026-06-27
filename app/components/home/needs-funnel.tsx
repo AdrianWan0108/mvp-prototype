@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Activity, Heart, Dumbbell, Spline } from "lucide-react";
 import { Container } from "../container";
-import { SectionHeading } from "../section-heading";
 import { cn } from "@/app/lib/cn";
 import { photos } from "@/app/lib/images";
 
@@ -104,13 +103,13 @@ function NeedCard({
           className="object-cover motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:scale-105"
         />
       </div>
-      <div className="mt-3 flex items-center gap-2 text-primary">
-        <Icon className="h-4 w-4 shrink-0" strokeWidth={1.75} />
-        <h3 className="font-serif text-sm font-bold uppercase tracking-[0.06em] text-foreground">
+      <div className="mt-4 flex items-center gap-2 text-primary">
+        <Icon className="h-5 w-5 shrink-0" strokeWidth={1.75} />
+        <h3 className="font-serif text-lg font-bold uppercase tracking-[0.06em] text-foreground sm:text-xl">
           {need.title}
         </h3>
       </div>
-      <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+      <p className="mt-1.5 text-base leading-relaxed text-muted-foreground">
         {need.body}
       </p>
     </Link>
@@ -146,7 +145,7 @@ function NeedCta({
     >
       <Link
         href={need.href}
-        className="grid h-28 w-28 place-items-center rounded-full bg-primary text-center text-sm font-semibold leading-tight text-primary-foreground outline-none transition-transform duration-300 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+        className="grid h-32 w-32 place-items-center rounded-full bg-primary text-center text-base font-semibold leading-tight text-primary-foreground outline-none transition-transform duration-300 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 lg:h-40 lg:w-40"
       >
         Explore
         <br />
@@ -186,18 +185,27 @@ export function NeedsFunnel() {
   }, [paused]);
 
   return (
-    <section className="py-20 sm:py-24">
-      <Container>
-        <SectionHeading
-          eyebrow="Start with your goal"
-          title="What brings you to the studio?"
-          intro="Whatever your body needs, we’ll match you with the right classes and sessions."
-        />
+    <section className="pt-10 pb-20 sm:pt-12 sm:pb-24">
+      <Container size="wider">
+        {/* Enlarged, section-specific heading (bigger than the shared
+            SectionHeading) so this near-full-bleed section carries weight. */}
+        <div className="max-w-3xl">
+          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-primary">
+            Start with your goal
+          </p>
+          <h2 className="text-balance text-4xl font-semibold leading-tight sm:text-5xl">
+            What brings you to the studio?
+          </h2>
+          <p className="mt-4 text-xl leading-relaxed text-muted-foreground">
+            Whatever your body needs, we’ll match you with the right classes and
+            sessions.
+          </p>
+        </div>
 
         <div
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
-          className="mt-12 grid grid-cols-2 items-start gap-5 sm:gap-6 lg:grid-cols-4"
+          className="mt-12 grid grid-cols-2 items-start gap-6 sm:gap-8 lg:grid-cols-4"
         >
           {/* Each card is immediately followed in the DOM by its CTA so the
               named peer-hover reaches it. Grid placement sets the visual order. */}

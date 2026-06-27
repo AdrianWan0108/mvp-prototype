@@ -17,8 +17,9 @@ function GlowPoint({
   return (
     <div className={`absolute flex items-center gap-2.5 ${className ?? ""}`}>
       <span className="relative flex h-3 w-3 shrink-0">
-        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-300 opacity-80" />
-        <span className="relative inline-flex h-3 w-3 rounded-full bg-brand-300 shadow-[0_0_14px_5px_rgba(145,208,175,0.9)]" />
+        <span className="absolute inline-flex h-full w-full animate-hero-ping rounded-full bg-brand-300 opacity-80" />
+        <span className="absolute inline-flex h-full w-full animate-hero-ping rounded-full bg-brand-300 opacity-60 [animation-delay:0.9s]" />
+        <span className="relative inline-flex h-3 w-3 rounded-full bg-brand-300 shadow-[0_0_16px_6px_rgba(145,208,175,0.95)]" />
       </span>
       <span className="rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs font-medium text-white shadow-lg backdrop-blur-md sm:text-sm">
         {label}

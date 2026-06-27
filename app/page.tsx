@@ -4,6 +4,7 @@ import { NeedsFunnel } from "./components/home/needs-funnel";
 import { EquipmentShowcase } from "./components/home/equipment-showcase";
 import { PolestarHighlight } from "./components/home/polestar-highlight";
 import { BrandReveal } from "./components/home/brand-reveal";
+import { LogoReveal } from "./components/home/logo-reveal";
 import { CoreValues } from "./components/home/core-values";
 import { GalleryWall } from "./components/home/gallery-wall";
 import { GetStarted } from "./components/home/get-started";
@@ -32,13 +33,13 @@ export default function Home() {
       <Hero />
 
       {/* WHY MVP — welcome / value props */}
-      <section className="bg-muted/40 py-16">
-        <Container>
+      <section className="bg-brand-200/50 py-10">
+        <Container size="wide">
           <p className="max-w-3xl font-serif text-2xl leading-snug sm:text-3xl">
             Welcome to MVP — a studio where strength, mobility, and recovery meet
             expert, science-led coaching.
           </p>
-          <div className="mt-10 grid gap-8 sm:grid-cols-3">
+          <div className="mt-8 grid gap-8 sm:grid-cols-3">
             {values.map((value) => (
               <div key={value.title}>
                 <h2 className="font-serif text-lg font-semibold">
@@ -56,6 +57,7 @@ export default function Home() {
       <NeedsFunnel />
       <EquipmentShowcase />
       <BrandReveal />
+      <LogoReveal />
       <CoreValues />
       <GalleryWall />
       <PolestarHighlight />

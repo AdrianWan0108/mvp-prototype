@@ -376,3 +376,29 @@ h4 {
     transform: translateY(0);
   }
 }
+
+/* Hero glow points: a stronger, further-reaching "growing" pulse than
+   Tailwind's default `animate-ping` (which only scales to 2×). The ring
+   expands to ~4× and fades, so the dots read as actively radiating. Two
+   rings are staggered in the markup for a continuous wave. */
+@keyframes hero-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  70%,
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+.animate-hero-ping {
+  animation: hero-ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-hero-ping {
+    animation: none;
+  }
+}

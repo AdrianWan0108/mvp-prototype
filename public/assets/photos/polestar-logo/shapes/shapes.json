@@ -1,0 +1,49 @@
+{
+  "aspect": 3.1419,
+  "shapes": [
+    {
+      "centerPct": 8.25
+    },
+    {
+      "centerPct": 23.48
+    },
+    {
+      "centerPct": 39.8
+    },
+    {
+      "centerPct": 57.87
+    },
+    {
+      "centerPct": 73.6
+    },
+    {
+      "centerPct": 91.68
+    }
+  ],
+  "columnEdges": [
+    {
+      "left": 0,
+      "width": 15.87
+    },
+    {
+      "left": 15.87,
+      "width": 15.78
+    },
+    {
+      "left": 31.64,
+      "width": 17.19
+    },
+    {
+      "left": 48.83,
+      "width": 16.9
+    },
+    {
+      "left": 65.73,
+      "width": 16.91
+    },
+    {
+      "left": 82.64,
+      "width": 17.36
+    }
+  ]
+}
