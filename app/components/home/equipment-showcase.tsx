@@ -65,17 +65,17 @@ export function EquipmentShowcase() {
               alt={item.photo.alt}
               fill
               sizes="(min-width: 1024px) 20vw, 100vw"
-              className="object-cover grayscale brightness-90 transition-all duration-500 ease-out group-hover:grayscale-0 group-hover:brightness-110 motion-safe:group-hover:scale-105"
+              className="object-cover grayscale brightness-90 transition-all duration-[1100ms] ease-out group-hover:grayscale-0 group-hover:brightness-110 motion-safe:group-hover:scale-105"
             />
             {/* Dark veil that lifts on hover, so the machine 'glows out' */}
-            <div className="absolute inset-0 bg-black/45 transition-colors duration-500 group-hover:bg-black/15" />
+            <div className="absolute inset-0 bg-black/45 transition-colors duration-[1100ms] ease-out group-hover:bg-black/15" />
 
             {/* Centered text */}
             <div className="absolute inset-0 flex flex-col items-center justify-center px-5 text-center">
-              <h3 className="font-serif text-2xl font-semibold text-white drop-shadow-lg sm:text-3xl">
+              <h3 className="font-serif text-2xl font-semibold text-white drop-shadow-lg transition-all duration-500 ease-out sm:text-3xl lg:translate-y-4 lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:opacity-100 lg:group-hover:delay-100">
                 {item.name}
               </h3>
-              <p className="mt-3 max-w-[17rem] text-base leading-relaxed text-white/90 drop-shadow transition-all duration-500 lg:max-h-0 lg:translate-y-2 lg:overflow-hidden lg:opacity-0 lg:group-hover:max-h-48 lg:group-hover:translate-y-0 lg:group-hover:opacity-100">
+              <p className="mt-3 max-w-[17rem] text-base leading-relaxed text-white/90 drop-shadow transition-all duration-500 ease-out lg:max-h-0 lg:translate-y-4 lg:overflow-hidden lg:opacity-0 lg:group-hover:max-h-48 lg:group-hover:translate-y-0 lg:group-hover:opacity-100 lg:group-hover:delay-300">
                 {item.blurb}
               </p>
             </div>

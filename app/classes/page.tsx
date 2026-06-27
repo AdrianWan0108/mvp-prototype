@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { PageHeader } from "../components/page-header";
 import { Container } from "../components/container";
-import { SectionHeading } from "../components/section-heading";
 import { CtaButton } from "../components/cta-button";
 import { links } from "@/app/lib/links";
 import { ClassPackages } from "./class-packages";
@@ -17,6 +16,7 @@ export default function ClassesPage() {
   return (
     <>
       <PageHeader
+        compact
         eyebrow="Classes & pricing"
         title="Classes"
         intro="Pick the package that fits your goals, then book on professional equipment with a Polestar-certified team. Registration and the live schedule run through Mindbody."
@@ -24,12 +24,6 @@ export default function ClassesPage() {
 
       <section className="bg-secondary py-20 text-secondary-foreground sm:py-24">
         <Container>
-          <SectionHeading
-            eyebrow="Pricing & booking"
-            title="Packages & pricing"
-            intro="Booking, registration, and the live schedule are all handled through Mindbody. Pick a package, then reserve your spot."
-          />
-
           <Suspense fallback={<div className="mt-12 h-96" />}>
             <ClassPackages />
           </Suspense>

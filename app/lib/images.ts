@@ -57,7 +57,11 @@ export const photos = {
     alt: "Front entrance of Motion Vitality Pilates featuring the Polestar Pilates branding.",
   },
   spineFigure: {
-    src: `${opt}/studio-interior/spine-figure.webp`,
+    src: `${base}/studio-interior/spine-figure.webp`,
+    alt: "Anatomical spine model used to explain movement and rehabilitation at the studio.",
+  },
+  spineFigure_2: {
+    src: `${base}/studio-interior/spine-figure-2.jpg`,
     alt: "Anatomical spine model used to explain movement and rehabilitation at the studio.",
   },
 

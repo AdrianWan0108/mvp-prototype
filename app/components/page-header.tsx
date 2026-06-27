@@ -1,3 +1,4 @@
+import { cn } from "@/app/lib/cn";
 import { Container } from "./container";
 
 /** Consistent page title band used by interior pages. */
@@ -5,14 +6,17 @@ export function PageHeader({
   eyebrow,
   title,
   intro,
+  compact = false,
 }: {
   eyebrow?: string;
   title: string;
   intro?: string;
+  /** Tighter vertical padding for pages where the band should sit lower. */
+  compact?: boolean;
 }) {
   return (
     <section className="border-b border-border bg-muted/40">
-      <Container className="py-16 sm:py-20">
+      <Container className={cn(compact ? "py-10 sm:py-12" : "py-16 sm:py-20")}>
         {eyebrow && (
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-primary">
             {eyebrow}

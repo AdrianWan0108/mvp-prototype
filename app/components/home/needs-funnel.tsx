@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { Activity, Heart, Dumbbell, Spline } from "lucide-react";
 import { Container } from "../container";
 import { SectionHeading } from "../section-heading";
@@ -121,9 +124,11 @@ function NeedCard({
  */
 function NeedCta({
   need,
+  active,
   className,
 }: {
   need: (typeof needs)[number];
+  active?: boolean;
   className?: string;
 }) {
   return (
@@ -134,6 +139,8 @@ function NeedCta({
         need.enter,
         need.reveal,
         "hover:translate-x-0 hover:scale-100 hover:opacity-100 focus-within:translate-x-0 focus-within:scale-100 focus-within:opacity-100",
+        // Idle auto-loop: reveal this CTA without a hover (desktop only).
+        active && "lg:translate-x-0 lg:scale-100 lg:opacity-100",
         className,
       )}
     >
@@ -149,7 +156,35 @@ function NeedCta({
   );
 }
 
+// Visual left-to-right order for the idle loop, as indices into `needs`:
+// Rehab → Strength → Posture → Pre & postnatal, then repeat.
+const loopOrder = [0, 2, 3, 1];
+const loopInterval = 1200; // ms each CTA stays revealed before the next takes over
+
 export function NeedsFunnel() {
+  // Index into `needs` of the CTA currently auto-revealed (null = none).
+  const [activeNeed, setActiveNeed] = useState<number | null>(null);
+  // Pauses the loop while the cursor is anywhere over the grid.
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (paused) {
+      setActiveNeed(null);
+      return;
+    }
+    // Respect reduced-motion: leave the CTAs to hover-only behaviour.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let step = 0;
+    const advance = () => {
+      setActiveNeed(loopOrder[step % loopOrder.length]);
+      step += 1;
+    };
+    advance();
+    const id = window.setInterval(advance, loopInterval);
+    return () => window.clearInterval(id);
+  }, [paused]);
+
   return (
     <section className="py-20 sm:py-24">
       <Container>
@@ -159,20 +194,40 @@ export function NeedsFunnel() {
           intro="Whatever your body needs, we’ll match you with the right classes and sessions."
         />
 
-        <div className="mt-12 grid grid-cols-2 items-start gap-5 sm:gap-6 lg:grid-cols-4">
+        <div
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          className="mt-12 grid grid-cols-2 items-start gap-5 sm:gap-6 lg:grid-cols-4"
+        >
           {/* Each card is immediately followed in the DOM by its CTA so the
               named peer-hover reaches it. Grid placement sets the visual order. */}
           <NeedCard need={needs[0]} className="lg:col-start-1 lg:row-start-1" />
-          <NeedCta need={needs[0]} className="lg:col-start-2 lg:row-start-1" />
+          <NeedCta
+            need={needs[0]}
+            active={activeNeed === 0}
+            className="lg:col-start-2 lg:row-start-1"
+          />
 
           <NeedCard need={needs[1]} className="lg:col-start-2 lg:row-start-2" />
-          <NeedCta need={needs[1]} className="lg:col-start-1 lg:row-start-2" />
+          <NeedCta
+            need={needs[1]}
+            active={activeNeed === 1}
+            className="lg:col-start-1 lg:row-start-2"
+          />
 
           <NeedCard need={needs[2]} className="lg:col-start-3 lg:row-start-1" />
-          <NeedCta need={needs[2]} className="lg:col-start-4 lg:row-start-1" />
+          <NeedCta
+            need={needs[2]}
+            active={activeNeed === 2}
+            className="lg:col-start-4 lg:row-start-1"
+          />
 
           <NeedCard need={needs[3]} className="lg:col-start-4 lg:row-start-2" />
-          <NeedCta need={needs[3]} className="lg:col-start-3 lg:row-start-2" />
+          <NeedCta
+            need={needs[3]}
+            active={activeNeed === 3}
+            className="lg:col-start-3 lg:row-start-2"
+          />
         </div>
       </Container>
     </section>

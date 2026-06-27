@@ -3,20 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Card } from "../components/card";
 import { CtaButton } from "../components/cta-button";
-import { cn } from "@/app/lib/cn";
 import { links } from "@/app/lib/links";
 import { photos, type PhotoKey } from "@/app/lib/images";
 
-/**
- * Need-based filtering for the class packages.
- *
- * STUB: maps each package to one or more `need` tags and filters by the
- * `?need=` query param (read client-side because the site is statically
- * exported, so there's no request-time searchParams). The tag taxonomy is a
- * placeholder — refine the mapping once class types are finalized.
- */
 const NEEDS = ["rehab", "prenatal", "strength", "alignment"] as const;
 type Need = (typeof NEEDS)[number];
 
@@ -113,16 +103,104 @@ const packages: Pkg[] = [
 
 function BenefitList({ items }: { items: string[] }) {
   return (
-    <ul className="mt-4 space-y-2">
+    <ul className="mt-4 space-y-2.5">
       {items.map((item) => (
-        <li key={item} className="flex items-start gap-3 text-sm">
-          <span aria-hidden className="mt-0.5 text-primary">
+        <li key={item} className="flex items-start gap-3 text-base">
+          <span aria-hidden className="mt-0.5 font-bold text-brand-700">
             &#10003;
           </span>
           <span className="font-medium">{item}</span>
         </li>
       ))}
     </ul>
+  );
+}
+
+/**
+ * Featured package (top row): large photo on the left, all copy on the right.
+ * No card/border — sits directly on the section background.
+ */
+function FeaturedPackage({ pkg }: { pkg: Pkg }) {
+  return (
+    <div className="grid items-center gap-8 md:grid-cols-2 lg:gap-12">
+      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl">
+        <Image
+          src={photos[pkg.photo].src}
+          alt={photos[pkg.photo].alt}
+          fill
+          sizes="(min-width: 768px) 50vw, 100vw"
+          className="object-cover"
+        />
+        {pkg.featured && (
+          <span className="absolute left-4 top-4 z-10 inline-block rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground shadow-sm">
+            Best for new clients
+          </span>
+        )}
+      </div>
+
+      <div className="flex flex-col">
+        <h3 className="font-serif text-3xl font-semibold lg:text-4xl">
+          {pkg.name}
+        </h3>
+        <p className="mt-2 text-4xl font-bold text-foreground lg:text-5xl">
+          {pkg.price}
+        </p>
+        <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+          {pkg.description}
+        </p>
+        <BenefitList items={pkg.includes} />
+        <CtaButton
+          href={links.book}
+          variant="outline"
+          size="lg"
+          className="mt-7 self-start bg-card hover:bg-muted"
+        >
+          Book Now
+        </CtaButton>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Grid package: large photo on top, then name + price, details, and CTA
+ * stacked below. No card/border — sits directly on the section background.
+ */
+function PackageCard({ pkg }: { pkg: Pkg }) {
+  return (
+    <div className="flex flex-col">
+      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl">
+        <Image
+          src={photos[pkg.photo].src}
+          alt={photos[pkg.photo].alt}
+          fill
+          sizes="(min-width: 640px) 50vw, 100vw"
+          className="object-cover"
+        />
+      </div>
+
+      <div className="mt-5 flex items-baseline justify-between gap-4">
+        <h3 className="font-serif text-2xl font-semibold lg:text-3xl">
+          {pkg.name}
+        </h3>
+        <p className="shrink-0 text-3xl font-bold text-foreground">
+          {pkg.price}
+        </p>
+      </div>
+
+      <p className="mt-3 text-base leading-relaxed text-muted-foreground">
+        {pkg.description}
+      </p>
+      <BenefitList items={pkg.includes} />
+      <CtaButton
+        href={links.book}
+        variant="outline"
+        size="lg"
+        className="mt-7 self-start bg-card hover:bg-muted"
+      >
+        Book Now
+      </CtaButton>
+    </div>
   );
 }
 
@@ -136,8 +214,9 @@ export function ClassPackages() {
   const filtered = activeNeed
     ? packages.filter((pkg) => pkg.needs.includes(activeNeed))
     : packages;
-  // Fall back to all packages rather than rendering an empty grid.
   const shown = filtered.length > 0 ? filtered : packages;
+
+  const useSpecialLayout = !activeNeed && shown.length === 5;
 
   return (
     <>
@@ -155,51 +234,22 @@ export function ClassPackages() {
         </div>
       )}
 
-      <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {shown.map((pkg) => (
-          <Card
-            key={pkg.name}
-            className={cn(
-              "group flex flex-col",
-              pkg.featured && "ring-2 ring-primary",
-            )}
-          >
-            <div className="relative aspect-[4/3]">
-              <Image
-                src={photos[pkg.photo].src}
-                alt={photos[pkg.photo].alt}
-                fill
-                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-              />
-              {pkg.featured && (
-                <span className="absolute left-4 top-4 z-10 inline-block rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground shadow-sm">
-                  Best for new clients
-                </span>
-              )}
-            </div>
-            <div className="flex flex-1 flex-col p-6">
-              <h3 className="font-serif text-xl font-semibold">{pkg.name}</h3>
-              <p className="mt-2 text-3xl font-semibold text-primary">
-                {pkg.price}
-              </p>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                {pkg.description}
-              </p>
-              <div className="flex-1">
-                <BenefitList items={pkg.includes} />
-              </div>
-              <CtaButton
-                href={links.book}
-                variant={pkg.featured ? "primary" : "outline"}
-                className="mt-6"
-              >
-                Book Now
-              </CtaButton>
-            </div>
-          </Card>
-        ))}
-      </div>
+      {useSpecialLayout ? (
+        <div className="mt-8 flex flex-col gap-14 lg:gap-20">
+          <FeaturedPackage pkg={shown[0]} />
+          <div className="grid gap-10 sm:grid-cols-2 sm:gap-x-10 sm:gap-y-14">
+            {shown.slice(1).map((pkg) => (
+              <PackageCard key={pkg.name} pkg={pkg} />
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div className="mt-8 grid gap-10 sm:grid-cols-2 sm:gap-x-10 sm:gap-y-14">
+          {shown.map((pkg) => (
+            <PackageCard key={pkg.name} pkg={pkg} />
+          ))}
+        </div>
+      )}
     </>
   );
 }

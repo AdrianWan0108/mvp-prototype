@@ -360,3 +360,19 @@ h4 {
     animation: none;
   }
 }
+
+/* Equipment showcase: on hover the equipment name and its blurb fade + rise
+   into view. Driven by `animation` (not `transition`) so the global transition
+   reset above can't suppress it. The component staggers name vs. blurb via
+   per-element animation-delay, and hides them by default only with motion-safe,
+   so reduced-motion users still get the static text. */
+@keyframes equip-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
