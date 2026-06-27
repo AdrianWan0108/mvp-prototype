@@ -143,6 +143,109 @@
   --ring: var(--brand-500);
 }
 
+/* ---------- BLUSH — dusty rose (warm pink) ----------
+   Dominant Dusty Rose lands on --brand-500 (light pages); Warm Ink on
+   --brand-900 (Polestar-dark derives its base from it). */
+[data-theme="blush"] {
+  color-scheme: light;
+
+  --brand-50: #faf6f5;  /* Warm White */
+  --brand-100: #f2e4e6; /* Petal */
+  --brand-200: #e2b5bc; /* Muted Blush */
+  --brand-300: #d4a1a9;
+  --brand-400: #c68d96;
+  --brand-500: #b87a84; /* Dusty Rose — dominant */
+  --brand-600: #95646c;
+  --brand-700: #724e54;
+  --brand-800: #493338;
+  --brand-900: #1a1518; /* Warm Ink */
+
+  --background: var(--brand-50);
+  --foreground: var(--brand-900);
+  --card: #ffffff;
+  --card-foreground: var(--brand-900);
+  --primary: var(--brand-500);
+  --primary-foreground: #1a1518; /* 500 fails AA with white text */
+  --secondary: var(--brand-200);
+  --secondary-foreground: var(--brand-900);
+  --muted: var(--brand-100);
+  --muted-foreground: var(--brand-800);
+  --accent: var(--brand-400);
+  --accent-foreground: var(--brand-900);
+  --border: var(--brand-200);
+  --input: var(--brand-200);
+  --ring: var(--brand-500);
+}
+
+/* ---------- AMBER — warm gold / honey ----------
+   Dominant Amber on --brand-500 (light pages); Obsidian on --brand-900. */
+[data-theme="amber"] {
+  color-scheme: light;
+
+  --brand-50: #f7f4ef;  /* Warm White */
+  --brand-100: #ede2ce; /* Parchment */
+  --brand-200: #e0cd9f;
+  --brand-300: #d4b870; /* Gold Sand */
+  --brand-400: #cea14d;
+  --brand-500: #c88b2a; /* Amber — dominant */
+  --brand-600: #a07026;
+  --brand-700: #765422;
+  --brand-800: #44331d;
+  --brand-900: #111118; /* Obsidian */
+
+  --background: var(--brand-50);
+  --foreground: var(--brand-900);
+  --card: #ffffff;
+  --card-foreground: var(--brand-900);
+  --primary: var(--brand-500);
+  --primary-foreground: #111118; /* 500 fails AA with white text */
+  --secondary: var(--brand-200);
+  --secondary-foreground: var(--brand-900);
+  --muted: var(--brand-100);
+  --muted-foreground: var(--brand-800);
+  --accent: var(--brand-400);
+  --accent-foreground: var(--brand-900);
+  --border: var(--brand-200);
+  --input: var(--brand-200);
+  --ring: var(--brand-500);
+}
+
+/* ---------- TERRACOTTA — warm clay over cool slate ----------
+   Dominant Terracotta on --brand-500 (light pages); Deep Slate on
+   --brand-900, with Slate sitting at --brand-700 so the dark Polestar
+   base reads as deep slate. The ramp turns from warm (50–600) to cool
+   (700–900) — intentional, mirroring the client's two-tone palette. */
+[data-theme="terracotta"] {
+  color-scheme: light;
+
+  --brand-50: #f7f3ed;  /* Ivory */
+  --brand-100: #ede6d8; /* Bone */
+  --brand-200: #e0c4af;
+  --brand-300: #d3a387;
+  --brand-400: #c5815e;
+  --brand-500: #b85f35; /* Terracotta — dominant */
+  --brand-600: #8a5a3f;
+  --brand-700: #4a6f7c; /* Slate */
+  --brand-800: #324e5a;
+  --brand-900: #1d2b34; /* Deep Slate */
+
+  --background: var(--brand-50);
+  --foreground: var(--brand-900);
+  --card: #ffffff;
+  --card-foreground: var(--brand-900);
+  --primary: var(--brand-500);
+  --primary-foreground: #ffffff; /* mid-tone 500: white is the closer-to-AA option */
+  --secondary: var(--brand-200);
+  --secondary-foreground: var(--brand-900);
+  --muted: var(--brand-100);
+  --muted-foreground: var(--brand-800);
+  --accent: var(--brand-400);
+  --accent-foreground: var(--brand-900);
+  --border: var(--brand-200);
+  --input: var(--brand-200);
+  --ring: var(--brand-500);
+}
+
 /* ---------- POLESTAR DARK — auto-applied on /polestar ----------
    A palette-DERIVED dark theme: the dark surfaces are built from the
    selected palette's own --brand-* ramp, deepened toward black just

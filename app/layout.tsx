@@ -110,7 +110,7 @@ export const metadata: Metadata = {
 
 // Applies the saved palette + font pairing before first paint to prevent a
 // flash of the defaults. Mirrors the option lists in brand-controls.tsx.
-const themeInitScript = `(function(){try{var t=localStorage.getItem('mvp-theme');var ok=['verdant','forest','sage','mint'];document.documentElement.setAttribute('data-theme',ok.indexOf(t)>-1?t:'verdant');}catch(e){document.documentElement.setAttribute('data-theme','verdant');}try{var f=localStorage.getItem('mvp-font');var of=['modern','classic','elegant','bold'];document.documentElement.setAttribute('data-font',of.indexOf(f)>-1?f:'modern');}catch(e){document.documentElement.setAttribute('data-font','modern');}})();`;
+const themeInitScript = `(function(){try{var t=localStorage.getItem('mvp-theme');var ok=['verdant','forest','sage','mint','blush','amber','terracotta'];document.documentElement.setAttribute('data-theme',ok.indexOf(t)>-1?t:'verdant');}catch(e){document.documentElement.setAttribute('data-theme','verdant');}try{var f=localStorage.getItem('mvp-font');var of=['modern','classic','elegant','bold'];document.documentElement.setAttribute('data-font',of.indexOf(f)>-1?f:'modern');}catch(e){document.documentElement.setAttribute('data-font','modern');}})();`;
 
 const businessJsonLd = {
   "@context": "https://schema.org",

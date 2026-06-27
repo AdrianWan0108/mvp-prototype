@@ -17,6 +17,9 @@ const THEMES = [
   { id: "forest", label: "Forest" },
   { id: "sage", label: "Sage" },
   { id: "mint", label: "Mint" },
+  { id: "blush", label: "Blush" },
+  { id: "amber", label: "Amber" },
+  { id: "terracotta", label: "Terracotta" },
 ] as const;
 
 /** Font pairings — must match the [data-font] blocks in globals.css. */
