@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { cn } from "@/app/lib/cn";
 
-type Variant = "primary" | "secondary" | "outline";
+type Variant = "primary" | "secondary" | "outline" | "inverse";
 type Size = "md" | "lg";
 
 const base =
@@ -11,6 +11,8 @@ const variantClasses: Record<Variant, string> = {
   primary: "bg-primary text-primary-foreground hover:opacity-90",
   secondary: "bg-secondary text-secondary-foreground hover:bg-brand-300",
   outline: "border border-border text-foreground hover:bg-muted",
+  // Solid white pill for use on a coloured/dark bar (e.g. the brand-colour navbar).
+  inverse: "bg-white text-foreground hover:bg-white/90",
 };
 
 const sizeClasses: Record<Size, string> = {

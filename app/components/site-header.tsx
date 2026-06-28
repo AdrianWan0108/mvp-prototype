@@ -8,7 +8,7 @@ import { Container } from "./container";
 import { CtaButton } from "./cta-button";
 import { mainNav, site } from "@/app/lib/site";
 import { links } from "@/app/lib/links";
-import { photos } from "@/app/lib/images";
+import { navLogos } from "@/app/lib/images";
 import { cn } from "@/app/lib/cn";
 
 function isActive(pathname: string | null, href: string): boolean {
@@ -21,23 +21,52 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [theme, setTheme] = useState("verdant");
   const lastScrollY = useRef(0);
   // Polestar routes use the dark theme; scope it to the header too for cohesion.
   const isPolestar = pathname?.startsWith("/polestar") ?? false;
   // The home hero runs full-bleed behind the header — sit transparent over it
-  // until the user scrolls, then swap to the solid treatment.
+  // until the user scrolls.
   const isHome = pathname === "/";
-  const transparent = isHome && !scrolled && !open;
+  // Three header backdrops:
+  //   overHero  — transparent, over the dark hero (home, at the top).
+  //   brandBar  — solid brand-colour bar (home, once scrolled / menu open).
+  //   else      — the light bar on every other page.
+  const overHero = isHome && !scrolled && !open;
+  const brandBar = isHome && !overHero;
+  // The logo + nav text sit on a dark/colour backdrop (white) in both the
+  // over-hero and brand-bar states; only the light bar uses dark text.
+  const onColor = overHero || brandBar;
 
-  // Nav link colors flip to white while the header sits transparent over the hero.
+  const logoSrc = navLogos[theme] ?? navLogos.verdant;
+  // The transparent mark is rendered white on any dark/colour bar (over the
+  // hero, on the scrolled brand bar, and on the dark Polestar bar); on the plain
+  // light bar of other pages it shows as the coloured mark.
+  const logoInvert = onColor || isPolestar;
+
+  // Nav link colors flip to white while the header sits on a dark/colour bar.
   const navLink = (active: boolean) =>
-    transparent
+    onColor
       ? active
         ? "font-semibold text-white"
         : "text-white/90 hover:text-white"
       : active
         ? "font-semibold text-primary"
         : "text-foreground/90";
+
+  // Keep the logo in sync with the live palette (set on <html> by BrandControls
+  // / the no-FOUC script). A MutationObserver avoids coupling the two siblings.
+  useEffect(() => {
+    const html = document.documentElement;
+    const read = () => {
+      const t = html.getAttribute("data-theme");
+      setTheme(t && navLogos[t] ? t : "verdant");
+    };
+    read();
+    const obs = new MutationObserver(read);
+    obs.observe(html, { attributes: true, attributeFilter: ["data-theme"] });
+    return () => obs.disconnect();
+  }, []);
 
   // Hide the header when scrolling down, reveal it when scrolling up.
   useEffect(() => {
@@ -61,9 +90,11 @@ export function SiteHeader() {
       data-theme={isPolestar ? "polestar-dark" : undefined}
       className={cn(
         "sticky top-0 z-40 transition-[transform,background-color,border-color] duration-300",
-        transparent
+        overHero
           ? "border-b border-transparent bg-transparent text-white"
-          : "border-b border-border bg-background/85 text-foreground backdrop-blur",
+          : brandBar
+            ? "border-b border-transparent bg-primary text-white"
+            : "border-b border-border bg-background/85 text-foreground backdrop-blur",
         hidden && !open ? "-translate-y-full" : "translate-y-0",
       )}
     >
@@ -84,14 +115,14 @@ export function SiteHeader() {
             aria-label={`${site.name} — home`}
           >
             <Image
-              src={photos.mvpLogo.src}
+              src={logoSrc}
               alt={site.name}
-              width={130}
-              height={40}
+              width={90}
+              height={64}
               priority
               className={cn(
-                "h-9 w-auto transition-[filter]",
-                transparent && "brightness-0 invert",
+                "h-16 w-auto object-contain transition-[filter]",
+                logoInvert && "brightness-0 invert",
               )}
             />
           </Link>
@@ -158,7 +189,11 @@ export function SiteHeader() {
               </Link>
             ),
           )}
-          <CtaButton href={links.book} className="ml-2">
+          <CtaButton
+            href={links.book}
+            variant={brandBar ? "inverse" : "primary"}
+            className="ml-2"
+          >
             Book Now
           </CtaButton>
         </nav>
@@ -171,7 +206,7 @@ export function SiteHeader() {
           aria-label="Toggle navigation menu"
           className={cn(
             "grid h-10 w-10 place-items-center rounded-lg border lg:hidden",
-            transparent ? "border-white/40 text-white" : "border-border",
+            onColor ? "border-white/40 text-white" : "border-border",
           )}
         >
           <svg
